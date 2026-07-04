@@ -16,7 +16,7 @@ test:
 	go test ./...
 
 ci-test: tool-update test $(CUSTOM_LINT)
-	@set -eu; \
+	@set -eux; \
 	if $(CUSTOM_LINT) run ./... > lint.logs 2>&1; then \
 		echo "ERROR: lint succeeded, expected it to report the example bug" >&2; \
 		exit 1; \

@@ -6,7 +6,7 @@ test: test-update
 	git diff --exit-code
 
 test-update:
-	@set -eu; \
+	@set -eux; \
 	for dir in $(EXAMPLE_DIRS); do \
 		echo "==> $$dir: ci-test"; \
 		$(MAKE) -C "$$dir" ci-test; \

@@ -1,0 +1,8 @@
+main.go:18:46: Potential nil panic detected. Observed nil flow from source to dereference point: 
+	- profile/repository.go:28:9: literal `nil` returned from `FindByEmail()` in position 0
+	- cross_package_nil/main.go:18:46: result 0 of `FindByEmail()` accessed field `Email` via the assignment(s):
+		- `repo.FindByEmail(...)` to `p` at cross_package_nil/main.go:13:2 (nilaway)
+	fmt.Printf("sending welcome email to %s\n", p.Email)
+	                                            ^
+1 issues:
+* nilaway: 1

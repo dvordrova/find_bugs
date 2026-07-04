@@ -1,0 +1,17 @@
+name: test
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    container:
+      image: golang:1.26.4
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Run repository checks
+        run: make test

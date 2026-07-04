@@ -24,7 +24,10 @@ ci-test: tool-update test $(CUSTOM_LINT)
 		echo "ERROR: lint succeeded, expected it to report the example bug" >&2; \
 		exit 1; \
 	fi; \
-	$(CUSTOM_LINT) run --config .golangci.fixed.yaml > lint-fixed.logs 2>&1
+	if ! $(CUSTOM_LINT) run --config .golangci.fixed.yaml > lint-fixed.logs 2>&1; then \
+		cat lint-fixed.logs >&2; \
+		exit 1; \
+	fi
 
 # Maintainer: apply pinned tool versions to go.mod/go.sum.
 tool-update:

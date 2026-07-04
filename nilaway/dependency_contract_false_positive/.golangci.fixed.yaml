@@ -18,5 +18,5 @@ linters:
       # In production, back this kind of suppression with an SDK contract or test.
       - linters:
           - nilaway
-        path: ^main\.go$
+        path: (^|.*/)main\.go$
         text: nilable value assigned into global variable `DefaultPlan`

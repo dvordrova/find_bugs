@@ -88,14 +88,14 @@ linters:
       # In production, back this kind of suppression with an SDK contract or test.
       - linters:
           - nilaway
-        path: ^main\.go$
+        path: (^|.*/)main\.go$
         text: nilable value assigned into global variable `DefaultPlan`
 ```
 
 Он специально точечный:
 
 1. `linters: [nilaway]` оставляет все остальные линтеры включенными.
-2. `path: ^main\.go$` ограничивает правило этим app entrypoint.
+2. `path: (^|.*/)main\.go$` ограничивает правило этим app entrypoint и матчится и на локальный, и на CI path format.
 3. `text: ...DefaultPlan` матчится на известный SDK global-pointer false positive, а не на любой nil dereference.
 4. `warn-unused: true` заставит golangci-lint предупредить, если exclusion перестал матчиться после изменения кода.
 

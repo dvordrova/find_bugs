@@ -1,0 +1,9 @@
+main.go:16:38: Potential nil panic detected. Observed nil flow from source to dereference point: 
+	- contractsdk/tenant.go:8:5: nilable value assigned into global variable `DefaultPlan`
+	- dependency_contract_false_positive/main.go:12:12: global variable `DefaultPlan` passed as arg `plan` to `printPlan()` via the assignment(s):
+		- `contractsdk.DefaultPlan` to `plan` at dependency_contract_false_positive/main.go:10:2
+	- dependency_contract_false_positive/main.go:16:38: function parameter `plan` accessed field `Name` (nilaway)
+	fmt.Printf("tenant uses %s plan\n", plan.Name)
+	                                    ^
+1 issues:
+* nilaway: 1

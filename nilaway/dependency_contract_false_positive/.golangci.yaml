@@ -1,0 +1,11 @@
+version: "2"
+linters:
+  enable:
+    - nilaway
+  settings:
+    custom:
+      nilaway:
+        type: module
+        description: Static analysis tool to detect potential nil panics in Go code.
+        settings:
+          include-pkgs: github.com/dvordrova/find_bugs/nilaway/dependency_contract_false_positive,github.com/acme/contractsdk

@@ -16,13 +16,6 @@ jobs:
       - name: Trust checkout directory
         run: git config --global --add safe.directory "$GITHUB_WORKSPACE"
 
-      - name: Show git context
-        run: |
-          cd "$GITHUB_WORKSPACE"
-          pwd
-          git rev-parse --show-toplevel
-          git status --short
-
       - name: Run repository checks
         run: |
           cd "$GITHUB_WORKSPACE"

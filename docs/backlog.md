@@ -21,9 +21,11 @@ Implemented examples:
 - `govet/lostcancel`
 - `govet/waitgroup_add_inside_goroutine`
 - `govet/scannererr_vettool`
+- `golangci/http_response_body_leak`
 - `golangci/sql_rows_not_closed`
 - `synctest/context_afterfunc_negative_assertion`
 - `synctest/unbuffered_send_after_timeout`
+- `teamrules/context_first_argument`
 - `teamrules/ddd_repository_boundary`
 - `teamrules/force_sqlc_query_layer`
 - `teamrules/no_infrastructure_imports_in_domain`
@@ -40,9 +42,9 @@ Current shape by area:
 | NilAway | Started: 2 examples, including one false-positive/config example. |
 | Goleak | Started: timeout send leak and missing context propagation. |
 | Race detector | Good initial set: map, pointer config, shutdown flag. |
-| govet / golangci-lint | Good initial set: copylocks, noCopy, lostcancel, WaitGroup, scannererr vettool, SQL rows close. |
+| govet / golangci-lint | Good initial set: copylocks, noCopy, lostcancel, WaitGroup, scannererr vettool, HTTP body close, SQL rows close. |
 | synctest | Started: negative assertion, fake-time timeout, and blocked-send-after-timeout examples. |
-| teamrules | Started: DDD repository boundary, force sqlc query layer, no infrastructure imports in domain, transaction boundary, no wall clock in domain, and no panic in service path. This is not complete. |
+| teamrules | Started: DDD repository boundary, force sqlc query layer, no infrastructure imports in domain, transaction boundary, context first argument, no wall clock in domain, and no panic in service path. |
 | metadata/provenance | Not implemented yet. |
 | GoBench import/curation | Not implemented yet. |
 | GFuzz-style schedule/order examples | Started: select priority assumption. |
@@ -61,11 +63,9 @@ Planned team-rule examples from `BUGS.md`:
 - [x] No infrastructure imports in domain packages: ban `database/sql`, HTTP clients, queue clients, and loggers from domain code.
 - [x] No wall clock in domain logic: ban `time.Now()` in domain packages.
 - [x] No panic in service paths: ban `panic` in service packages.
-- [ ] Context first argument: I/O-facing functions should accept `context.Context` as the first argument.
+- [x] Context first argument: I/O-facing functions should accept `context.Context` as the first argument.
 
-Good next team-rule candidate:
-
-- `teamrules/context_first_argument`: useful, but probably wants a small custom analyzer or carefully scoped ruleguard pattern.
+Team-rule backlog is now good enough to move on to metadata and resource/API leak examples.
 
 ### Synctest
 
@@ -117,7 +117,7 @@ Follow-up tooling:
 
 Planned:
 
-- [ ] HTTP response body leak with `bodyclose`
+- [x] HTTP response body leak with `bodyclose`
 - [ ] ticker/timer leak
 - [ ] file handle leak
 - [ ] SQL rows iteration error ignored with `rowserrcheck`
@@ -137,9 +137,9 @@ Pick one small, deterministic example and finish it end to end.
 
 Recommended order:
 
-1. `teamrules/context_first_argument`
-2. `catalog.yaml` metadata validation
-3. HTTP response body leak with `bodyclose`
+1. `catalog.yaml` metadata validation
+2. ticker/timer leak
+3. SQL rows iteration error ignored with `rowserrcheck`
 
 For each example:
 

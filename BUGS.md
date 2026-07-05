@@ -75,7 +75,7 @@ This catalog is based on practical Go failure modes and on the taxonomy from ["U
 | --- | --- | --- |
 | Goroutine leak on early return | Function starts a worker and returns without canceling or draining it. | `go.uber.org/goleak` in tests. |
 | Ticker/timer leak | `time.NewTicker` is not stopped. | Tests and review; goleak can show goroutines caused by leaked background work. |
-| HTTP response body leak | Client does not close `resp.Body`. | `bodyclose` via `golangci-lint`. |
+| HTTP response body leak | Client does not close `resp.Body`. | `bodyclose` via `golangci-lint`; implemented in [golangci/http_response_body_leak](golangci/http_response_body_leak/README.md). |
 | SQL rows leak | Code reads from `*sql.Rows` and even checks `rows.Err()`, but forgets `rows.Close()`. | `sqlclosecheck` through `golangci-lint`. |
 | File handle leak | Error path returns before closing a file. | `go vet`, tests, and linters such as `errcheck` for ignored close errors. |
 
@@ -89,7 +89,7 @@ This catalog is based on practical Go failure modes and on the taxonomy from ["U
 | No infrastructure imports in domain | Domain packages import `database/sql`, HTTP clients, loggers, or queue clients. | `depguard` for broad import boundaries; implemented in [teamrules/no_infrastructure_imports_in_domain](teamrules/no_infrastructure_imports_in_domain/README.md). |
 | No wall clock in domain logic | Domain code calls `time.Now` directly instead of accepting a clock. | `ruleguard` for `time.Now()` in domain packages; implemented in [teamrules/no_wall_clock_in_domain](teamrules/no_wall_clock_in_domain/README.md). |
 | No panic in service paths | Service/application packages use `panic` for ordinary error handling. | `ruleguard` for `panic($*_)` in service packages; implemented in [teamrules/no_panic_in_service_path](teamrules/no_panic_in_service_path/README.md). |
-| Context first argument | I/O-facing functions accept `context.Context`, but not as the first argument. | `revive`/custom analyzer; `ruleguard` can cover common local signatures. |
+| Context first argument | I/O-facing functions accept `context.Context`, but not as the first argument. | revive's `context-as-argument` rule through `golangci-lint`; implemented in [teamrules/context_first_argument](teamrules/context_first_argument/README.md). |
 
 ## Implemented Examples
 
@@ -117,3 +117,5 @@ This catalog is based on practical Go failure modes and on the taxonomy from ["U
 22. [synctest/unbuffered_send_after_timeout](synctest/unbuffered_send_after_timeout/README.md)
 23. [concurrency/message_order_assumption](concurrency/message_order_assumption/README.md)
 24. [teamrules/no_infrastructure_imports_in_domain](teamrules/no_infrastructure_imports_in_domain/README.md)
+25. [golangci/http_response_body_leak](golangci/http_response_body_leak/README.md)
+26. [teamrules/context_first_argument](teamrules/context_first_argument/README.md)

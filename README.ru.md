@@ -81,6 +81,7 @@ BUGS.md
 - [govet/scannererr_vettool](govet/scannererr_vettool/README.ru.md): line importer использует `bufio.Scanner` с маленьким token limit и забывает `scanner.Err`. Local wrapper через `go vet -vettool` запускает analyzer `scannererr` из `golang.org/x/tools`.
 - [golangci/sql_rows_not_closed](golangci/sql_rows_not_closed/README.ru.md): repository method сканирует database rows и проверяет iteration errors, но забывает `rows.Close`. `sqlclosecheck` через `golangci-lint` репортит resource leak.
 - [teamrules/ddd_repository_boundary](teamrules/ddd_repository_boundary/README.ru.md): service code напрямую вызывает `*sql.DB`. Type-aware правило `ruleguard` держит database calls внутри repository packages.
+- [synctest/context_afterfunc_negative_assertion](synctest/context_afterfunc_negative_assertion/README.ru.md): cancellation hook пишет audit record до cancel context. `testing/synctest` делает assertion "еще ничего не произошло" детерминированным.
 
 ## Инструменты
 
@@ -88,6 +89,7 @@ BUGS.md
 - `sqlclosecheck` и `rowserrcheck`: точечные golangci-lint линтеры для lifetime SQL rows и iteration errors.
 - `scannererr`: Go analysis pass из `golang.org/x/tools`, здесь запускается через маленький local binary для `go vet -vettool`, пока он не доступен через стандартный `go vet`.
 - `ruleguard`: custom team rules для architecture boundaries и project-specific conventions.
+- `testing/synctest`: стандартная библиотека для детерминированных тестов concurrent code, fake time и negative assertions без wall-clock sleeps.
 - `nilaway`: статический анализатор Uber для потенциальных nil panic, здесь используется через custom build `golangci-lint`.
 - `go test -race`: runtime race detector для части багов с shared memory.
 - Uber leak detector (`go.uber.org/goleak`): test-time detector для утечек goroutine.

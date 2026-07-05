@@ -41,6 +41,15 @@ This catalog is based on practical Go failure modes and on the taxonomy from ["U
 | Read/write race on cached config | One goroutine refreshes a pointer to config while request handlers read it directly. | `go test -race`; fix with `atomic.Pointer`, `sync.RWMutex`, or immutable handoff. |
 | Race on shutdown flag | Worker goroutines read a plain boolean while another goroutine writes it during shutdown. | `go test -race`; fix with context cancellation, channel close, mutex, or atomic state. |
 
+## Deterministic Concurrency Testing
+
+| Bug | Example | Detection |
+| --- | --- | --- |
+| Early `context.AfterFunc` callback | Code registers cleanup or audit work for cancellation, but starts it during registration. A weak ordinary test only checks that the work eventually happened after cancel. | `testing/synctest` with `synctest.Wait` makes the negative assertion "nothing happened before cancel" deterministic. |
+| Context timeout tested with wall-clock sleeps | Timeout logic is tested with real sleeps, making tests slow or flaky under load. | `testing/synctest` fake time can move to the deadline without waiting on real time. |
+| Select priority assumption | Code assumes a `select` prefers one ready case over another. | Repeated tests or a small schedule harness can expose the non-deterministic order assumption; this is a lightweight direction inspired by GFuzz. |
+| Message ordering assumption | A channel protocol only works when messages arrive in one order. | A helper can run table-driven order permutations before a larger GFuzz-style tool is worth building. |
+
 ## Go Vet Through golangci-lint Examples
 
 | Bug | Example | Detection |
@@ -97,3 +106,4 @@ This catalog is based on practical Go failure modes and on the taxonomy from ["U
 12. [golangci/sql_rows_not_closed](golangci/sql_rows_not_closed/README.md)
 13. [govet/scannererr_vettool](govet/scannererr_vettool/README.md)
 14. [teamrules/ddd_repository_boundary](teamrules/ddd_repository_boundary/README.md)
+15. [synctest/context_afterfunc_negative_assertion](synctest/context_afterfunc_negative_assertion/README.md)

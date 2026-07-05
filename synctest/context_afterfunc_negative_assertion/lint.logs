@@ -1,0 +1,5 @@
+--- FAIL: TestSynctestChecksBeforeCancel (0.00s)
+    main_test.go:33: before cancel: audit records = 1, want 0
+FAIL
+FAIL	github.com/dvordrova/find_bugs/synctest/context_afterfunc_negative_assertion Xs
+FAIL

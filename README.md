@@ -81,6 +81,7 @@ BUGS.md
 - [govet/scannererr_vettool](govet/scannererr_vettool/README.md): a line importer uses `bufio.Scanner` with a small token limit and forgets `scanner.Err`. A local `go vet -vettool` wrapper runs the `scannererr` analyzer from `golang.org/x/tools`.
 - [golangci/sql_rows_not_closed](golangci/sql_rows_not_closed/README.md): a repository method scans database rows and checks iteration errors, but forgets `rows.Close`. `sqlclosecheck` through `golangci-lint` reports the resource leak.
 - [teamrules/ddd_repository_boundary](teamrules/ddd_repository_boundary/README.md): service code calls `*sql.DB` directly. A type-aware `ruleguard` rule keeps database calls inside repository packages.
+- [synctest/context_afterfunc_negative_assertion](synctest/context_afterfunc_negative_assertion/README.md): a cancellation hook writes an audit record before the context is canceled. `testing/synctest` makes the "nothing happened yet" assertion deterministic.
 
 ## Tools
 
@@ -88,6 +89,7 @@ BUGS.md
 - `sqlclosecheck` and `rowserrcheck`: focused golangci-lint linters for SQL rows resource lifetime and iteration errors.
 - `scannererr`: Go analysis pass from `golang.org/x/tools`, run here with a small local `go vet -vettool` binary until it is available through standard `go vet`.
 - `ruleguard`: custom team rules for architecture boundaries and project-specific conventions.
+- `testing/synctest`: standard-library support for deterministic tests of concurrent code, fake time, and negative assertions without wall-clock sleeps.
 - `nilaway`: Uber's static analyzer for potential nil panics, used here through a custom `golangci-lint` build.
 - `go test -race`: runtime race detector for some shared-memory concurrency bugs.
 - Uber leak detector (`go.uber.org/goleak`): test-time detector for leaked goroutines.

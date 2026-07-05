@@ -47,6 +47,7 @@ BUGS.md
 - [nilaway/cross_package_nil](nilaway/cross_package_nil/README.md): функция репозитория возвращает `nil, nil`; вызывающий код доверяет пустой ошибке и разыменовывает nil-результат. NilAway может показать этот nil-flow через custom build `golangci-lint` до runtime panic.
 - [nilaway/dependency_contract_false_positive](nilaway/dependency_contract_false_positive/README.ru.md): dependency module экспортирует pointer, который инициализируется в `init`; runtime безопасен, но NilAway репортит global pointer как nilable.
 - [goleak/channel_timeout_leak](goleak/channel_timeout_leak/README.ru.md): request истекает по timeout, а background worker позже отправляет результат в unbuffered channel. Обычный test проходит, но `go.uber.org/goleak` репортит leaked goroutine.
+- [goleak/context_not_cancelled](goleak/context_not_cancelled/README.ru.md): background cache warmer принимает context, но не использует его внутри worker. Обычный test проходит, но `go.uber.org/goleak` репортит goroutine, оставшуюся в `select`.
 
 ## Инструменты
 

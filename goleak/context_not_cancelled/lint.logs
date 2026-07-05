@@ -1,0 +1,10 @@
+PASS
+goleak: Errors on successful test run: found unexpected goroutines:
+[Goroutine N in state select, with github.com/dvordrova/find_bugs/goleak/context_not_cancelled.(*SessionCache).Warm.func1 on top of the stack:
+github.com/dvordrova/find_bugs/goleak/context_not_cancelled.(*SessionCache).Warm.func1()
+	github.com/dvordrova/find_bugs/goleak/context_not_cancelled/main.go:33 +0xADDR
+created by github.com/dvordrova/find_bugs/goleak/context_not_cancelled.(*SessionCache).Warm in goroutine N
+	github.com/dvordrova/find_bugs/goleak/context_not_cancelled/main.go:28 +0xADDR
+]
+FAIL	github.com/dvordrova/find_bugs/goleak/context_not_cancelled Xs
+FAIL

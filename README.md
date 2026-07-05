@@ -4,7 +4,29 @@ Small, self-contained Go bug examples and the tools that can catch them.
 
 Each problem is meant to be easy to run, easy to inspect, and close enough to production code to be useful. The examples intentionally keep the bug visible without turning the code into a puzzle.
 
-The first example uses Go's tool dependency mechanism for the custom linter build.
+## Purpose
+
+This is executable documentation for Go bug patterns and tooling behavior.
+
+The goal is not to benchmark tools or collect clever broken snippets. The goal is to preserve small, realistic examples with the exact tool reports they produce, including true positives, false positives, and the configuration needed to handle them responsibly.
+
+## Quick Start
+
+Run the full repository check:
+
+```sh
+make test
+```
+
+Run one example:
+
+```sh
+cd nilaway/cross_package_nil
+make run
+make lint
+```
+
+Some `make lint` targets are expected to fail because they demonstrate the bug. CI uses `ci-test` targets and committed snapshot logs to verify that the expected reports stay stable.
 
 ## Structure
 
@@ -37,7 +59,11 @@ BUGS.md
 - `make test-update`: regenerates pinned tool files and lint snapshot logs for every example.
 - `make test`: runs `make test-update`, then fails if tracked files changed.
 
+## Why Snapshots
+
 The generated `*.logs` files are committed snapshots. When a Go, golangci-lint, or NilAway version changes, `make test` shows the changed reports through `git diff`.
+
+This keeps the repository honest about tool behavior. If a diagnostic changes, the diff shows what changed and forces a human to decide whether the new output is expected.
 
 The full catalog of planned bugs is in [BUGS.md](BUGS.md).
 

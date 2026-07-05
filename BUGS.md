@@ -60,16 +60,16 @@ This catalog is based on practical Go failure modes and on the taxonomy from "Un
 | HTTP response body leak | Client does not close `resp.Body`. | `bodyclose` via `golangci-lint`. |
 | File handle leak | Error path returns before closing a file. | `go vet`, tests, and linters such as `errcheck` for ignored close errors. |
 
-## First Implementation Order
+## Implemented Examples
 
-1. `nilaway/cross_package_nil`
-2. `nilaway/dependency_contract_false_positive`
-3. `goleak/channel_timeout_leak`
-4. `goleak/context_not_cancelled`
-5. `race/shared_map`
-6. `race/config_pointer`
-7. `race/shutdown_flag`
-8. `govet/copylocks`
-9. `govet/nocopy_marker`
-10. `govet/lostcancel`
-11. `govet/waitgroup_add_inside_goroutine`
+1. [nilaway/cross_package_nil](nilaway/cross_package_nil/README.md)
+2. [nilaway/dependency_contract_false_positive](nilaway/dependency_contract_false_positive/README.md)
+3. [goleak/channel_timeout_leak](goleak/channel_timeout_leak/README.md)
+4. [goleak/context_not_cancelled](goleak/context_not_cancelled/README.md)
+5. [race/shared_map](race/shared_map/README.md)
+6. [race/config_pointer](race/config_pointer/README.md)
+7. [race/shutdown_flag](race/shutdown_flag/README.md)
+8. [govet/copylocks](govet/copylocks/README.md)
+9. [govet/nocopy_marker](govet/nocopy_marker/README.md)
+10. [govet/lostcancel](govet/lostcancel/README.md)
+11. [govet/waitgroup_add_inside_goroutine](govet/waitgroup_add_inside_goroutine/README.md)

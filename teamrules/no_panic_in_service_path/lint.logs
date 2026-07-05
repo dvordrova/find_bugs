@@ -1,0 +1,1 @@
+internal/payments/service/payment.go:27:3: noPanicInServicePath: service code must return errors instead of panicking (no_panic.go:6)

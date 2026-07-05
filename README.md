@@ -82,6 +82,7 @@ BUGS.md
 - [golangci/sql_rows_not_closed](golangci/sql_rows_not_closed/README.md): a repository method scans database rows and checks iteration errors, but forgets `rows.Close`. `sqlclosecheck` through `golangci-lint` reports the resource leak.
 - [teamrules/ddd_repository_boundary](teamrules/ddd_repository_boundary/README.md): service code calls `*sql.DB` directly. A type-aware `ruleguard` rule keeps database calls inside repository packages.
 - [teamrules/no_wall_clock_in_domain](teamrules/no_wall_clock_in_domain/README.md): domain code calls `time.Now` directly. A narrow `ruleguard` rule keeps wall-clock reads in adapters or composition roots.
+- [teamrules/no_panic_in_service_path](teamrules/no_panic_in_service_path/README.md): service code panics for an ordinary business failure. A narrow `ruleguard` rule keeps service paths returning errors instead.
 - [synctest/context_afterfunc_negative_assertion](synctest/context_afterfunc_negative_assertion/README.md): a cancellation hook writes an audit record before the context is canceled. `testing/synctest` makes the "nothing happened yet" assertion deterministic.
 
 ## Tools

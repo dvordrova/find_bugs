@@ -1,0 +1,10 @@
+version: "2"
+
+linters:
+  enable:
+    - revive
+  settings:
+    revive:
+      severity: warning
+      rules:
+        - name: context-as-argument

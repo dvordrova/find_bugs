@@ -1,0 +1,5 @@
+internal/invoices/service/invoice.go:11:58: context-as-argument: context.Context should be the first parameter of a function (revive)
+func (s InvoiceService) RebuildInvoice(invoiceID string, ctx context.Context) error {
+                                                         ^
+1 issues:
+* revive: 1

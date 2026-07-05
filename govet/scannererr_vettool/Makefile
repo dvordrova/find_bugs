@@ -17,6 +17,7 @@ test:
 
 ci-test: test $(VETTOOL)
 	@set -eux; \
+	go mod download; \
 	if go vet -vettool=$(VETTOOL) ./... > lint.logs 2>&1; then \
 		echo "ERROR: lint succeeded, expected scannererr to report the example bug" >&2; \
 		exit 1; \

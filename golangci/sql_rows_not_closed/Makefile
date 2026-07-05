@@ -18,6 +18,7 @@ test:
 
 ci-test: test
 	@set -eux; \
+	go mod download; \
 	if [ -n "$(LINT_CONFIG)" ]; then \
 		if go tool golangci-lint run --config "$(ACTIVE_LINT_CONFIG)" ./... > lint.logs 2>&1; then \
 			printf 'OK: lint succeeded with LINT_CONFIG=%s\n' "$(ACTIVE_LINT_CONFIG)" >> lint.logs; \

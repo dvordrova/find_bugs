@@ -15,6 +15,7 @@ test:
 
 ci-test: test
 	@set -eux; \
+	go mod download; \
 	raw="$$(mktemp)"; \
 	if go test -trimpath -tags leakcheck ./... > "$$raw" 2>&1; then \
 		sed -E 's/Goroutine [0-9]+/Goroutine N/g; s/goroutine [0-9]+/goroutine N/g; s/ \+0x[[:xdigit:]]+/ +0xADDR/g; s/[[:space:]][0-9.]+s$$/ Xs/g' "$$raw" > lint.logs; \

@@ -19,6 +19,7 @@ test:
 
 ci-test: test $(CUSTOM_LINT)
 	@set -eux; \
+	go mod download; \
 	export GOLANGCI_LINT_CACHE="$$(mktemp -d)"; \
 	export NO_COLOR=1; \
 	export TERM=dumb; \

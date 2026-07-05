@@ -49,6 +49,7 @@ BUGS.md
 - [goleak/channel_timeout_leak](goleak/channel_timeout_leak/README.md): a request times out while a background worker later sends to an unbuffered channel. The normal test passes, but `go.uber.org/goleak` reports the leaked goroutine.
 - [goleak/context_not_cancelled](goleak/context_not_cancelled/README.md): a background cache warmer accepts a context but does not use it inside the worker. The normal test passes, but `go.uber.org/goleak` reports the goroutine left in `select`.
 - [race/shared_map](race/shared_map/README.md): a metrics collector stores mutable counters in a map and reads them while another goroutine writes. `go test -race` reports the conflicting accesses.
+- [race/config_pointer](race/config_pointer/README.md): a config cache refreshes a shared `*Config` while request handlers read it. `go test -race` reports the unsynchronized pointer access.
 
 ## Tools
 

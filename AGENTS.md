@@ -31,6 +31,7 @@ Root checks are snapshot-based:
 - `make test` runs `make test-update`, then `git diff --exit-code`.
 
 If asked to reproduce this repository style elsewhere, use [docs/agent-bootstrap.md](docs/agent-bootstrap.md) as the handoff prompt and checklist.
+If asked what to do next, use [docs/backlog.md](docs/backlog.md) as the working checklist.
 
 ## Architecture Decisions
 
@@ -50,5 +51,5 @@ If asked to reproduce this repository style elsewhere, use [docs/agent-bootstrap
 
 ## Current Follow-Ups
 
+- Follow [docs/backlog.md](docs/backlog.md) for the next examples and repository improvements.
 - Consider explicitly setting NilAway `pretty-print: "false"` in golangci configs for deterministic snapshots.
-- Continue adding bug examples after the NilAway foundation stays green in CI.

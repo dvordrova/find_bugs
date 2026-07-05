@@ -117,4 +117,6 @@ make test LINT_CONFIG=/Users/me/project/.golangci.yaml
 
 Как добавить новый пример: [CONTRIBUTING.ru.md](CONTRIBUTING.ru.md).
 
+Рабочий backlog для следующих примеров и tooling лежит в [docs/backlog.md](docs/backlog.md).
+
 Чтобы воспроизвести стиль этого репозитория в другом проекте, используй prompt для агента: [docs/agent-bootstrap.ru.md](docs/agent-bootstrap.ru.md).

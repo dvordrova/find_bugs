@@ -49,13 +49,14 @@ This catalog is based on practical Go failure modes and on the taxonomy from "Un
 | Explicit no-copy marker | A type owns background state and embeds a `noCopy` marker with `Lock`/`Unlock` pointer methods so accidental value copies are reported. | `govet` through `golangci-lint`, analyzer `copylocks`; this documents an intentional non-copyable API contract. |
 | Lost context cancel | Code calls `context.WithTimeout` and forgets to call the returned cancel function on all paths. | `govet` through `golangci-lint`, analyzer `lostcancel`. |
 | WaitGroup misuse | `WaitGroup.Add` is called from inside the goroutine it is supposed to track. | `govet` through `golangci-lint` when the active Go version includes the WaitGroup analyzer; otherwise use a dedicated linter or keep as a documented limitation. |
+| Scanner error ignored | Code loops over `scanner.Scan()` and never checks `scanner.Err()`, so EOF and scanner failure are treated the same. | `scannererr` from `golang.org/x/tools` through a small local `go vet -vettool` wrapper; standard `go vet` does not include it yet in Go 1.26. |
 | Bad printf shape | Logging or formatting uses a dynamic format with mismatched arguments. | `govet` through `golangci-lint`, analyzer `printf`. |
 
 ## Input And Stream Handling
 
 | Bug | Example | Detection |
 | --- | --- | --- |
-| `bufio.Scanner` error swallowed | Scanner uses a small maximum token size, `Scan` returns `false` on a long token, and the caller forgets to check `scanner.Err()`. | Not caught by `go vet`, `govet`, `staticcheck`, or `errcheck` in a minimal check; use focused tests or a custom analyzer. |
+| `bufio.Scanner` error swallowed | Scanner uses a small maximum token size, `Scan` returns `false` on a long token, and the caller forgets to check `scanner.Err()`. | `scannererr` through a local `go vet -vettool`; this also remains a good test case because standard `go vet`, `govet`, `staticcheck`, and `errcheck` do not catch it in Go 1.26. |
 | SQL rows iteration error ignored | Code loops over `rows.Next()` and returns partial data without checking `rows.Err()`. | `rowserrcheck` through `golangci-lint`. |
 
 ## Resource Leaks
@@ -82,3 +83,4 @@ This catalog is based on practical Go failure modes and on the taxonomy from "Un
 10. [govet/lostcancel](govet/lostcancel/README.md)
 11. [govet/waitgroup_add_inside_goroutine](govet/waitgroup_add_inside_goroutine/README.md)
 12. [golangci/sql_rows_not_closed](golangci/sql_rows_not_closed/README.md)
+13. [govet/scannererr_vettool](govet/scannererr_vettool/README.md)

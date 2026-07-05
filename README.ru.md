@@ -55,12 +55,14 @@ BUGS.md
 - [govet/nocopy_marker](govet/nocopy_marker/README.ru.md): type явно включает copy detection через private `noCopy` marker. `govet` через `golangci-lint` репортит accidental value copies.
 - [govet/lostcancel](govet/lostcancel/README.ru.md): timeout context создается, но cancel function выбрасывается. `govet` через `golangci-lint` репортит context leak.
 - [govet/waitgroup_add_inside_goroutine](govet/waitgroup_add_inside_goroutine/README.ru.md): `WaitGroup.Add` вызывается внутри goroutine, которую должен отслеживать. `govet` через `golangci-lint` репортит lifecycle ordering bug.
+- [govet/scannererr_vettool](govet/scannererr_vettool/README.ru.md): line importer использует `bufio.Scanner` с маленьким token limit и забывает `scanner.Err`. Local wrapper через `go vet -vettool` запускает analyzer `scannererr` из `golang.org/x/tools`.
 - [golangci/sql_rows_not_closed](golangci/sql_rows_not_closed/README.ru.md): repository method сканирует database rows и проверяет iteration errors, но забывает `rows.Close`. `sqlclosecheck` через `golangci-lint` репортит resource leak.
 
 ## Инструменты
 
 - `golangci-lint`: общий драйвер для Go-линтеров. Сейчас NilAway подключается к нему как custom module plugin.
 - `sqlclosecheck` и `rowserrcheck`: точечные golangci-lint линтеры для lifetime SQL rows и iteration errors.
+- `scannererr`: Go analysis pass из `golang.org/x/tools`, здесь запускается через маленький local binary для `go vet -vettool`, пока он не доступен через стандартный `go vet`.
 - `nilaway`: статический анализатор Uber для потенциальных nil panic, здесь используется через custom build `golangci-lint`.
 - `go test -race`: runtime race detector для части багов с shared memory.
 - Uber leak detector (`go.uber.org/goleak`): test-time detector для утечек goroutine.

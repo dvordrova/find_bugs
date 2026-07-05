@@ -55,12 +55,14 @@ BUGS.md
 - [govet/nocopy_marker](govet/nocopy_marker/README.md): a type opts into copy detection with a private `noCopy` marker. `govet` through `golangci-lint` reports accidental value copies.
 - [govet/lostcancel](govet/lostcancel/README.md): a timeout context is created but its cancel function is discarded. `govet` through `golangci-lint` reports the context leak.
 - [govet/waitgroup_add_inside_goroutine](govet/waitgroup_add_inside_goroutine/README.md): `WaitGroup.Add` is called inside the goroutine it should track. `govet` through `golangci-lint` reports the lifecycle ordering bug.
+- [govet/scannererr_vettool](govet/scannererr_vettool/README.md): a line importer uses `bufio.Scanner` with a small token limit and forgets `scanner.Err`. A local `go vet -vettool` wrapper runs the `scannererr` analyzer from `golang.org/x/tools`.
 - [golangci/sql_rows_not_closed](golangci/sql_rows_not_closed/README.md): a repository method scans database rows and checks iteration errors, but forgets `rows.Close`. `sqlclosecheck` through `golangci-lint` reports the resource leak.
 
 ## Tools
 
 - `golangci-lint`: common driver for many Go linters. NilAway currently needs to be added as a custom module plugin.
 - `sqlclosecheck` and `rowserrcheck`: focused golangci-lint linters for SQL rows resource lifetime and iteration errors.
+- `scannererr`: Go analysis pass from `golang.org/x/tools`, run here with a small local `go vet -vettool` binary until it is available through standard `go vet`.
 - `nilaway`: Uber's static analyzer for potential nil panics, used here through a custom `golangci-lint` build.
 - `go test -race`: runtime race detector for some shared-memory concurrency bugs.
 - Uber leak detector (`go.uber.org/goleak`): test-time detector for leaked goroutines.

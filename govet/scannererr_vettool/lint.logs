@@ -1,0 +1,1 @@
+main.go:13:13: bufio.Scanner "scanner" is used in Scan loop at line 17 without final check of scanner.Err()

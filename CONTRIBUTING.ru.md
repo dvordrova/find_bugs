@@ -56,6 +56,16 @@
    make test
    ```
 
+## Acceptance Checklist
+
+Пример готов, когда новый читатель может сказать:
+
+- Я понимаю, какой production bug здесь показан.
+- Я понимаю, какой local command его ловит.
+- Я понимаю, какая CI command защищает snapshot.
+- Я понимаю, откуда приходит signal: `go tool`, `go vet -vettool`, `go test -race` или goleak.
+- Я понимаю основной fix или mitigation.
+
 Чтобы сравнить custom golangci-lint config с существующими примерами, запусти:
 
 ```sh

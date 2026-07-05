@@ -56,6 +56,16 @@ Keep contributions focused: one example should teach one bug pattern or one tool
    make test
    ```
 
+## Acceptance Checklist
+
+Before an example is done, a new reader should be able to say:
+
+- I know which production bug this demonstrates.
+- I know which local command catches it.
+- I know what CI command protects the snapshot.
+- I know whether the signal comes from `go tool`, `go vet -vettool`, `go test -race`, or goleak.
+- I know the main fix or mitigation.
+
 To compare a custom golangci-lint config against the existing examples, run:
 
 ```sh

@@ -15,6 +15,12 @@ The goal is not to benchmark tools or collect clever broken snippets. The goal i
 Run the full repository check:
 
 ```sh
+make
+```
+
+Same explicit target:
+
+```sh
 make test
 ```
 
@@ -27,6 +33,17 @@ make lint
 ```
 
 Some `make lint` targets are expected to fail because they demonstrate the bug. CI uses `ci-test` targets and committed snapshot logs to verify that the expected reports stay stable.
+
+## Tooling Contract
+
+Every example is shaped so a reader can turn the lesson into a local or CI guard:
+
+- `make run` shows the program behavior.
+- `make lint` runs the detector that should catch the bug.
+- `make test` runs the ordinary test path for that example.
+- `make ci-test` is the repository check that regenerates committed logs and asserts that the expected detector signal is still present.
+
+Tool versions live in the example module, usually through Go tool dependencies and `go tool`. Generated helper binaries such as NilAway's custom `golangci-lint` build or the scannererr vettool are ignored by git.
 
 ## Structure
 
@@ -70,7 +87,7 @@ BUGS.md
 ## Repository Checks
 
 - `make test-update`: regenerates pinned tool files and lint snapshot logs for every example.
-- `make test`: runs `make test-update`, then fails if tracked files changed.
+- `make` or `make test`: runs `make test-update`, then fails if tracked files changed.
 
 To try another golangci-lint config against the catalog:
 

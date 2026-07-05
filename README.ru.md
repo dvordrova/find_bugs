@@ -15,6 +15,12 @@
 Запустить проверку всего репозитория:
 
 ```sh
+make
+```
+
+То же самое явным target:
+
+```sh
 make test
 ```
 
@@ -27,6 +33,17 @@ make lint
 ```
 
 Некоторые `make lint` targets ожидаемо падают, потому что показывают баг. CI использует `ci-test` targets и committed snapshot logs, чтобы проверять стабильность ожидаемых отчетов.
+
+## Tooling Contract
+
+Каждый пример устроен так, чтобы читатель мог превратить урок в локальную или CI-проверку:
+
+- `make run` показывает поведение программы.
+- `make lint` запускает detector, который должен поймать баг.
+- `make test` запускает обычный test path для этого примера.
+- `make ci-test` - repository check, который перегенерирует committed logs и проверяет, что ожидаемый detector signal все еще есть.
+
+Версии инструментов живут внутри module примера, обычно через Go tool dependencies и `go tool`. Сгенерированные helper binaries, например custom build `golangci-lint` для NilAway или scannererr vettool, игнорируются git.
 
 ## Структура
 
@@ -70,7 +87,7 @@ BUGS.md
 ## Проверки репозитория
 
 - `make test-update`: перегенерирует pinned tool files и lint snapshot logs для всех примеров.
-- `make test`: запускает `make test-update`, а потом падает, если tracked files изменились.
+- `make` или `make test`: запускает `make test-update`, а потом падает, если tracked files изменились.
 
 Попробовать другой golangci-lint config на каталоге:
 

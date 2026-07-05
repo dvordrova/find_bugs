@@ -3,6 +3,8 @@ EXAMPLE_DIRS := $(sort $(patsubst ./%,%,$(patsubst %/Makefile,%,$(EXAMPLE_MAKEFI
 LINT_CONFIG ?= $(config)
 ROOT_LINT_CONFIG := $(if $(strip $(LINT_CONFIG)),$(abspath $(LINT_CONFIG)))
 
+.DEFAULT_GOAL := test
+
 .PHONY: test test-update list-examples
 
 test: test-update

@@ -10,6 +10,7 @@ Implemented examples:
 
 - `nilaway/cross_package_nil`
 - `nilaway/dependency_contract_false_positive`
+- `concurrency/message_order_assumption`
 - `goleak/channel_timeout_leak`
 - `goleak/context_not_cancelled`
 - `race/shared_map`
@@ -25,6 +26,7 @@ Implemented examples:
 - `synctest/unbuffered_send_after_timeout`
 - `teamrules/ddd_repository_boundary`
 - `teamrules/force_sqlc_query_layer`
+- `teamrules/no_infrastructure_imports_in_domain`
 - `teamrules/transaction_boundary`
 - `teamrules/no_wall_clock_in_domain`
 - `teamrules/no_panic_in_service_path`
@@ -40,7 +42,7 @@ Current shape by area:
 | Race detector | Good initial set: map, pointer config, shutdown flag. |
 | govet / golangci-lint | Good initial set: copylocks, noCopy, lostcancel, WaitGroup, scannererr vettool, SQL rows close. |
 | synctest | Started: negative assertion, fake-time timeout, and blocked-send-after-timeout examples. |
-| teamrules | Started: DDD repository boundary, force sqlc query layer, transaction boundary, no wall clock in domain, and no panic in service path. This is not complete. |
+| teamrules | Started: DDD repository boundary, force sqlc query layer, no infrastructure imports in domain, transaction boundary, no wall clock in domain, and no panic in service path. This is not complete. |
 | metadata/provenance | Not implemented yet. |
 | GoBench import/curation | Not implemented yet. |
 | GFuzz-style schedule/order examples | Started: select priority assumption. |
@@ -56,14 +58,13 @@ Planned team-rule examples from `BUGS.md`:
 - [x] DDD repository boundary: database calls belong in repository packages.
 - [x] Force sqlc query layer: application code should use generated query methods instead of raw SQL or direct `database/sql`.
 - [x] Transaction boundary: `BeginTx`, `Commit`, and `Rollback` belong in a unit-of-work or transaction manager package.
-- [ ] No infrastructure imports in domain packages: ban `database/sql`, HTTP clients, queue clients, and loggers from domain code.
+- [x] No infrastructure imports in domain packages: ban `database/sql`, HTTP clients, queue clients, and loggers from domain code.
 - [x] No wall clock in domain logic: ban `time.Now()` in domain packages.
 - [x] No panic in service paths: ban `panic` in service packages.
 - [ ] Context first argument: I/O-facing functions should accept `context.Context` as the first argument.
 
-Good next team-rule candidates:
+Good next team-rule candidate:
 
-- `teamrules/no_infrastructure_imports_in_domain`: useful import-boundary complement to call-level ruleguard examples.
 - `teamrules/context_first_argument`: useful, but probably wants a small custom analyzer or carefully scoped ruleguard pattern.
 
 ### Synctest
@@ -83,7 +84,7 @@ Planned:
 Planned:
 
 - [x] `concurrency/select_priority_assumption`
-- [ ] `concurrency/message_order_assumption`
+- [x] `concurrency/message_order_assumption`
 - [ ] small stress target pattern, probably `make stress`, for examples where repeated scheduling is the detector.
 
 Do not implement a full GFuzz clone here. Keep the repository focused on small runnable examples.
@@ -136,9 +137,9 @@ Pick one small, deterministic example and finish it end to end.
 
 Recommended order:
 
-1. `concurrency/message_order_assumption`
-2. `teamrules/no_infrastructure_imports_in_domain`
-3. `teamrules/context_first_argument`
+1. `teamrules/context_first_argument`
+2. `catalog.yaml` metadata validation
+3. HTTP response body leak with `bodyclose`
 
 For each example:
 

@@ -49,7 +49,7 @@ This catalog is based on practical Go failure modes and on the taxonomy from ["U
 | Context timeout tested with wall-clock sleeps | Timeout logic is tested with real sleeps, making tests slow or flaky under load. | `testing/synctest` fake time can move to the deadline without waiting on real time; implemented in [synctest/context_timeout_without_wall_clock](synctest/context_timeout_without_wall_clock/README.md). |
 | Unbuffered send after timeout | Caller returns on timeout, then the worker completes and blocks forever sending a late result to an unbuffered channel. | `testing/synctest` can advance fake time until the late send and report blocked goroutines; implemented in [synctest/unbuffered_send_after_timeout](synctest/unbuffered_send_after_timeout/README.md). |
 | Select priority assumption | Code assumes a `select` prefers one ready case over another. | Repeated tests or a small schedule harness can expose the non-deterministic order assumption; implemented in [concurrency/select_priority_assumption](concurrency/select_priority_assumption/README.md). |
-| Message ordering assumption | A channel protocol only works when messages arrive in one order. | A helper can run table-driven order permutations before a larger GFuzz-style tool is worth building. |
+| Message ordering assumption | A channel protocol only works when messages arrive in one order. | A helper can run table-driven order permutations before a larger GFuzz-style tool is worth building; implemented in [concurrency/message_order_assumption](concurrency/message_order_assumption/README.md). |
 
 ## Go Vet Through golangci-lint Examples
 
@@ -86,7 +86,7 @@ This catalog is based on practical Go failure modes and on the taxonomy from ["U
 | DDD repository boundary | Service/application packages use `*sql.DB` or `*sql.Tx` directly instead of going through repository packages. | `ruleguard` with a type-aware rule that allows `database/sql` calls only under packages ending in `/repository`. |
 | Force sqlc query layer | Application code writes raw SQL strings or calls `database/sql` directly instead of using generated sqlc query methods. | `ruleguard` for direct `*sql.DB`/`*sql.Tx` query calls outside generated packages; implemented in [teamrules/force_sqlc_query_layer](teamrules/force_sqlc_query_layer/README.md). |
 | Transaction boundary | Code starts or commits transactions outside a unit-of-work/transaction manager package. | `ruleguard` for `BeginTx`, `Commit`, and `Rollback` calls outside allowed packages; implemented in [teamrules/transaction_boundary](teamrules/transaction_boundary/README.md). |
-| No infrastructure imports in domain | Domain packages import `database/sql`, HTTP clients, loggers, or queue clients. | `depguard` for broad import boundaries; `ruleguard` for call-level exceptions. |
+| No infrastructure imports in domain | Domain packages import `database/sql`, HTTP clients, loggers, or queue clients. | `depguard` for broad import boundaries; implemented in [teamrules/no_infrastructure_imports_in_domain](teamrules/no_infrastructure_imports_in_domain/README.md). |
 | No wall clock in domain logic | Domain code calls `time.Now` directly instead of accepting a clock. | `ruleguard` for `time.Now()` in domain packages; implemented in [teamrules/no_wall_clock_in_domain](teamrules/no_wall_clock_in_domain/README.md). |
 | No panic in service paths | Service/application packages use `panic` for ordinary error handling. | `ruleguard` for `panic($*_)` in service packages; implemented in [teamrules/no_panic_in_service_path](teamrules/no_panic_in_service_path/README.md). |
 | Context first argument | I/O-facing functions accept `context.Context`, but not as the first argument. | `revive`/custom analyzer; `ruleguard` can cover common local signatures. |
@@ -115,3 +115,5 @@ This catalog is based on practical Go failure modes and on the taxonomy from ["U
 20. [teamrules/transaction_boundary](teamrules/transaction_boundary/README.md)
 21. [teamrules/force_sqlc_query_layer](teamrules/force_sqlc_query_layer/README.md)
 22. [synctest/unbuffered_send_after_timeout](synctest/unbuffered_send_after_timeout/README.md)
+23. [concurrency/message_order_assumption](concurrency/message_order_assumption/README.md)
+24. [teamrules/no_infrastructure_imports_in_domain](teamrules/no_infrastructure_imports_in_domain/README.md)

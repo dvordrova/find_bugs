@@ -1,0 +1,1 @@
+internal/orders/repository.go:20:15: forceSQLCQueryLayer: database/sql calls must go through generated sqlc packages (force_sqlc.go:10)

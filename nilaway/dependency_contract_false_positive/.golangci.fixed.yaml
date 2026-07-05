@@ -2,9 +2,9 @@ version: "2"
 output:
   formats:
     json:
-      path: stdout
-    text:
       path: ""
+    text:
+      path: "stdout"
 linters:
   enable:
     - nilaway
@@ -22,7 +22,8 @@ linters:
       # initialized from contractsdk.init before main runs. Keep this narrow:
       # only NilAway, only this app file, only the DefaultPlan global-flow report.
       # In production, back this kind of suppression with an SDK contract or test.
-      - linters:
+      - path: '(^|.*/)main\.go$'
+        linters:
           - nilaway
-        path: (^|.*/)main\.go$
-        text: nilable value assigned into global variable `DefaultPlan`
+        text: "nilable value assigned into global variable .*DefaultPlan"
+        source: 'plan\.Name'

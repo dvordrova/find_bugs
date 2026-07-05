@@ -2,9 +2,9 @@ version: "2"
 output:
   formats:
     json:
-      path: stdout
-    text:
       path: ""
+    text:
+      path: "stdout"
 linters:
   enable:
     - nilaway

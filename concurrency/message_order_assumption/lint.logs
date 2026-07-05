@@ -1,0 +1,7 @@
+--- FAIL: TestMessageOrderPermutations (0.00s)
+    --- FAIL: TestMessageOrderPermutations/credit_before_account (0.00s)
+        main_test.go:48: reserved cents after credit_before_account = 0, want 500
+FAIL
+FAIL	github.com/dvordrova/find_bugs/concurrency/message_order_assumption Xs
+?   	github.com/dvordrova/find_bugs/concurrency/message_order_assumption/internal/projection	[no test files]
+FAIL

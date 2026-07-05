@@ -50,6 +50,7 @@ BUGS.md
 - [goleak/context_not_cancelled](goleak/context_not_cancelled/README.ru.md): background cache warmer принимает context, но не использует его внутри worker. Обычный test проходит, но `go.uber.org/goleak` репортит goroutine, оставшуюся в `select`.
 - [race/shared_map](race/shared_map/README.ru.md): metrics collector хранит mutable counters в map и читает их, пока другая goroutine пишет. `go test -race` репортит конфликтующие accesses.
 - [race/config_pointer](race/config_pointer/README.ru.md): config cache обновляет shared `*Config`, пока request handlers читают его. `go test -race` репортит unsynchronized pointer access.
+- [race/shutdown_flag](race/shutdown_flag/README.ru.md): worker читает обычный shutdown boolean, пока другая goroutine пишет его. `go test -race` репортит unsynchronized flag access.
 
 ## Инструменты
 

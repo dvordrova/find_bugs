@@ -10,6 +10,12 @@ This is executable documentation for Go bug patterns and tooling behavior.
 
 The goal is not to benchmark tools or collect clever broken snippets. The goal is to preserve small, realistic examples with the exact tool reports they produce, including true positives, false positives, and the configuration needed to handle them responsibly.
 
+## Background Paper
+
+The concurrency part of this catalog is guided by ["Understanding Real-World Concurrency Bugs in Go"](https://songlh.github.io/paper/go-study.pdf) by Tu, Liu, Song, and Zhang. The paper studies 171 bugs from production Go projects and uses a useful taxonomy: `blocking` vs `non-blocking` behavior, crossed with `shared memory` vs `message passing` causes.
+
+Use that paper as the map and the examples in this repository as runnable checkpoints.
+
 ## Quick Start
 
 Run the full repository check:

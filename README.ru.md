@@ -10,6 +10,12 @@
 
 Цель не в benchmark инструментов и не в коллекции хитрых сломанных snippets. Цель - сохранить маленькие реалистичные примеры с точными отчетами инструментов: true positives, false positives и конфигурация, которая нужна, чтобы с ними ответственно работать.
 
+## Базовая статья
+
+Concurrency-часть каталога опирается на ["Understanding Real-World Concurrency Bugs in Go"](https://songlh.github.io/paper/go-study.pdf) Tu, Liu, Song и Zhang. Авторы изучили 171 баг из production Go-проектов и используют полезную таксономию: поведение `blocking` vs `non-blocking`, пересеченное с причинами `shared memory` vs `message passing`.
+
+Используй эту статью как карту, а примеры в репозитории - как запускаемые checkpoints.
+
 ## Быстрый старт
 
 Запустить проверку всего репозитория:

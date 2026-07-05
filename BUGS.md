@@ -1,6 +1,6 @@
 # Bug Catalog
 
-This catalog is based on practical Go failure modes and on the taxonomy from "Understanding Real-World Concurrency Bugs in Go" by Tu, Liu, Song, and Zhang. The paper studies 171 real-world Go concurrency bugs and groups them along two useful axes: behavior (`blocking` vs `non-blocking`) and cause (`shared memory` vs `message passing`).
+This catalog is based on practical Go failure modes and on the taxonomy from ["Understanding Real-World Concurrency Bugs in Go"](https://songlh.github.io/paper/go-study.pdf) by Tu, Liu, Song, and Zhang. The paper studies 171 real-world Go concurrency bugs and groups them along two useful axes: behavior (`blocking` vs `non-blocking`) and cause (`shared memory` vs `message passing`).
 
 ## Nil Safety
 

@@ -1,0 +1,5 @@
+internal/catalog/client.go:15:24: response body must be closed (bodyclose)
+	resp, err := client.Do(req)
+	                      ^
+1 issues:
+* bodyclose: 1

@@ -1,0 +1,10 @@
+PASS
+goleak: Errors on successful test run: found unexpected goroutines:
+[Goroutine N in state chan send, with github.com/dvordrova/find_bugs/goleak/channel_timeout_leak.EmailGateway.Deliver.func1 on top of the stack:
+github.com/dvordrova/find_bugs/goleak/channel_timeout_leak.EmailGateway.Deliver.func1()
+	github.com/dvordrova/find_bugs/goleak/channel_timeout_leak/main.go:36 +0xADDR
+created by github.com/dvordrova/find_bugs/goleak/channel_timeout_leak.EmailGateway.Deliver in goroutine N
+	github.com/dvordrova/find_bugs/goleak/channel_timeout_leak/main.go:34 +0xADDR
+]
+FAIL	github.com/dvordrova/find_bugs/goleak/channel_timeout_leak Xs
+FAIL

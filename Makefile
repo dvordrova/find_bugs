@@ -1,4 +1,5 @@
-EXAMPLE_DIRS := $(sort $(patsubst %/Makefile,%,$(shell find nilaway -mindepth 2 -name Makefile)))
+EXAMPLE_MAKEFILES := $(shell find . -mindepth 3 -name Makefile -not -path './.git/*' -not -path './.agents/*')
+EXAMPLE_DIRS := $(sort $(patsubst ./%,%,$(patsubst %/Makefile,%,$(EXAMPLE_MAKEFILES))))
 
 .PHONY: test test-update list-examples
 

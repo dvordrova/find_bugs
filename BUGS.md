@@ -33,6 +33,24 @@ This catalog is based on practical Go failure modes and on the taxonomy from "Un
 | Channel close/send race | One goroutine closes a channel while another may still send. | `go test -race` may report related races; tests should exercise shutdown ordering. |
 | Select nondeterminism assumption | Code assumes priority when multiple select cases are ready. | Tests with repeated runs; design review. |
 
+## Race Detector Examples
+
+| Bug | Example | Detection |
+| --- | --- | --- |
+| Shared map race | A request metrics collector writes to a map from multiple goroutines without a mutex. | `go test -race`; snapshot the race report in `race.logs`. |
+| Read/write race on cached config | One goroutine refreshes a pointer to config while request handlers read it directly. | `go test -race`; fix with `atomic.Pointer`, `sync.RWMutex`, or immutable handoff. |
+| Race on shutdown flag | Worker goroutines read a plain boolean while another goroutine writes it during shutdown. | `go test -race`; fix with context cancellation, channel close, mutex, or atomic state. |
+
+## Go Vet Through golangci-lint Examples
+
+| Bug | Example | Detection |
+| --- | --- | --- |
+| Copied lock value | A service struct embeds `sync.Mutex` and a method copies the struct by value before using it. | `govet` through `golangci-lint`, analyzer `copylocks`. |
+| Explicit no-copy marker | A type owns background state and embeds a `noCopy` marker with `Lock`/`Unlock` pointer methods so accidental value copies are reported. | `govet` through `golangci-lint`, analyzer `copylocks`; this documents an intentional non-copyable API contract. |
+| Lost context cancel | Code calls `context.WithTimeout` and forgets to call the returned cancel function on all paths. | `govet` through `golangci-lint`, analyzer `lostcancel`. |
+| WaitGroup misuse | `WaitGroup.Add` is called from inside the goroutine it is supposed to track. | `govet` through `golangci-lint` when the active Go version includes the WaitGroup analyzer; otherwise use a dedicated linter or keep as a documented limitation. |
+| Bad printf shape | Logging or formatting uses a dynamic format with mismatched arguments. | `govet` through `golangci-lint`, analyzer `printf`. |
+
 ## Resource Leaks
 
 | Bug | Example | Detection |
@@ -49,4 +67,9 @@ This catalog is based on practical Go failure modes and on the taxonomy from "Un
 3. `goleak/channel_timeout_leak`
 4. `goleak/context_not_cancelled`
 5. `race/shared_map`
-6. `race/waitgroup_add_inside_goroutine`
+6. `race/config_pointer`
+7. `race/shutdown_flag`
+8. `govet/copylocks`
+9. `govet/nocopy_marker`
+10. `govet/lostcancel`
+11. `govet/waitgroup_add_inside_goroutine`

@@ -42,10 +42,11 @@ BUGS.md
   README.ru.md
 ```
 
-## First Example
+## Examples
 
 - [nilaway/cross_package_nil](nilaway/cross_package_nil/README.md): a repository function returns `nil, nil`; the caller trusts the nil error and dereferences the nil result. NilAway can report the nil flow through a custom `golangci-lint` build before the program panics.
 - [nilaway/dependency_contract_false_positive](nilaway/dependency_contract_false_positive/README.md): a dependency module exports a pointer initialized in `init`; runtime is safe, but NilAway reports the global pointer as nilable.
+- [goleak/channel_timeout_leak](goleak/channel_timeout_leak/README.md): a request times out while a background worker later sends to an unbuffered channel. The normal test passes, but `go.uber.org/goleak` reports the leaked goroutine.
 
 ## Tools
 

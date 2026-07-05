@@ -40,3 +40,5 @@ BUGS.md
 Сгенерированные `*.logs` файлы коммитятся как snapshots. Когда меняется версия Go, golangci-lint или NilAway, `make test` показывает изменение отчетов через `git diff`.
 
 Полный список планируемых багов находится в [BUGS.md](BUGS.md).
+
+Как добавить новый пример: [CONTRIBUTING.ru.md](CONTRIBUTING.ru.md).

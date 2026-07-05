@@ -40,3 +40,5 @@ BUGS.md
 The generated `*.logs` files are committed snapshots. When a Go, golangci-lint, or NilAway version changes, `make test` shows the changed reports through `git diff`.
 
 The full catalog of planned bugs is in [BUGS.md](BUGS.md).
+
+Contribution notes are in [CONTRIBUTING.md](CONTRIBUTING.md).

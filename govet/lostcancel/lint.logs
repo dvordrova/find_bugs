@@ -1,0 +1,5 @@
+main.go:26:7: lostcancel: the cancel function returned by context.WithTimeout should be called, not discarded, to avoid a context leak (govet)
+	ctx, _ = context.WithTimeout(ctx, 500*time.Millisecond)
+	     ^
+1 issues:
+* govet: 1

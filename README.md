@@ -53,6 +53,7 @@ BUGS.md
 - [race/shutdown_flag](race/shutdown_flag/README.md): a worker reads a plain shutdown boolean while another goroutine writes it. `go test -race` reports the unsynchronized flag access.
 - [govet/copylocks](govet/copylocks/README.md): a method copies a struct that contains `sync.Mutex`. `govet` through `golangci-lint` reports the copied lock value.
 - [govet/nocopy_marker](govet/nocopy_marker/README.md): a type opts into copy detection with a private `noCopy` marker. `govet` through `golangci-lint` reports accidental value copies.
+- [govet/lostcancel](govet/lostcancel/README.md): a timeout context is created but its cancel function is discarded. `govet` through `golangci-lint` reports the context leak.
 
 ## Tools
 

@@ -53,6 +53,7 @@ BUGS.md
 - [race/shutdown_flag](race/shutdown_flag/README.ru.md): worker читает обычный shutdown boolean, пока другая goroutine пишет его. `go test -race` репортит unsynchronized flag access.
 - [govet/copylocks](govet/copylocks/README.ru.md): method копирует struct, который содержит `sync.Mutex`. `govet` через `golangci-lint` репортит copied lock value.
 - [govet/nocopy_marker](govet/nocopy_marker/README.ru.md): type явно включает copy detection через private `noCopy` marker. `govet` через `golangci-lint` репортит accidental value copies.
+- [govet/lostcancel](govet/lostcancel/README.ru.md): timeout context создается, но cancel function выбрасывается. `govet` через `golangci-lint` репортит context leak.
 
 ## Инструменты
 

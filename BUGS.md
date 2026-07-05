@@ -84,7 +84,7 @@ This catalog is based on practical Go failure modes and on the taxonomy from ["U
 | --- | --- | --- |
 | DDD repository boundary | Service/application packages use `*sql.DB` or `*sql.Tx` directly instead of going through repository packages. | `ruleguard` with a type-aware rule that allows `database/sql` calls only under packages ending in `/repository`. |
 | Force sqlc query layer | Application code writes raw SQL strings or calls `database/sql` directly instead of using generated sqlc query methods. | `ruleguard` or `depguard`; combine import bans with allowlisted generated query packages. |
-| Transaction boundary | Code starts or commits transactions outside a unit-of-work/transaction manager package. | `ruleguard` for `BeginTx`, `Commit`, and `Rollback` calls outside allowed packages. |
+| Transaction boundary | Code starts or commits transactions outside a unit-of-work/transaction manager package. | `ruleguard` for `BeginTx`, `Commit`, and `Rollback` calls outside allowed packages; implemented in [teamrules/transaction_boundary](teamrules/transaction_boundary/README.md). |
 | No infrastructure imports in domain | Domain packages import `database/sql`, HTTP clients, loggers, or queue clients. | `depguard` for broad import boundaries; `ruleguard` for call-level exceptions. |
 | No wall clock in domain logic | Domain code calls `time.Now` directly instead of accepting a clock. | `ruleguard` for `time.Now()` in domain packages; implemented in [teamrules/no_wall_clock_in_domain](teamrules/no_wall_clock_in_domain/README.md). |
 | No panic in service paths | Service/application packages use `panic` for ordinary error handling. | `ruleguard` for `panic($*_)` in service packages; implemented in [teamrules/no_panic_in_service_path](teamrules/no_panic_in_service_path/README.md). |
@@ -111,3 +111,4 @@ This catalog is based on practical Go failure modes and on the taxonomy from ["U
 17. [teamrules/no_panic_in_service_path](teamrules/no_panic_in_service_path/README.md)
 18. [synctest/context_timeout_without_wall_clock](synctest/context_timeout_without_wall_clock/README.md)
 19. [concurrency/select_priority_assumption](concurrency/select_priority_assumption/README.md)
+20. [teamrules/transaction_boundary](teamrules/transaction_boundary/README.md)

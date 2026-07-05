@@ -23,6 +23,7 @@ Implemented examples:
 - `golangci/sql_rows_not_closed`
 - `synctest/context_afterfunc_negative_assertion`
 - `teamrules/ddd_repository_boundary`
+- `teamrules/transaction_boundary`
 - `teamrules/no_wall_clock_in_domain`
 - `teamrules/no_panic_in_service_path`
 - `synctest/context_timeout_without_wall_clock`
@@ -37,7 +38,7 @@ Current shape by area:
 | Race detector | Good initial set: map, pointer config, shutdown flag. |
 | govet / golangci-lint | Good initial set: copylocks, noCopy, lostcancel, WaitGroup, scannererr vettool, SQL rows close. |
 | synctest | Started: negative assertion and fake-time timeout examples. |
-| teamrules | Started: DDD repository boundary, no wall clock in domain, and no panic in service path. This is not complete. |
+| teamrules | Started: DDD repository boundary, transaction boundary, no wall clock in domain, and no panic in service path. This is not complete. |
 | metadata/provenance | Not implemented yet. |
 | GoBench import/curation | Not implemented yet. |
 | GFuzz-style schedule/order examples | Started: select priority assumption. |
@@ -52,15 +53,14 @@ Planned team-rule examples from `BUGS.md`:
 
 - [x] DDD repository boundary: database calls belong in repository packages.
 - [ ] Force sqlc query layer: application code should use generated query methods instead of raw SQL or direct `database/sql`.
-- [ ] Transaction boundary: `BeginTx`, `Commit`, and `Rollback` belong in a unit-of-work or transaction manager package.
+- [x] Transaction boundary: `BeginTx`, `Commit`, and `Rollback` belong in a unit-of-work or transaction manager package.
 - [ ] No infrastructure imports in domain packages: ban `database/sql`, HTTP clients, queue clients, and loggers from domain code.
 - [x] No wall clock in domain logic: ban `time.Now()` in domain packages.
 - [x] No panic in service paths: ban `panic` in service packages.
 - [ ] Context first argument: I/O-facing functions should accept `context.Context` as the first argument.
 
-Good next team-rule candidates:
+Good next team-rule candidate:
 
-- `teamrules/transaction_boundary`: useful, but requires more careful package layout.
 - `teamrules/force_sqlc_query_layer`: useful, but probably needs a tiny generated-like package and import/call boundary story.
 
 ### Synctest
@@ -133,10 +133,9 @@ Pick one small, deterministic example and finish it end to end.
 
 Recommended order:
 
-1. `teamrules/transaction_boundary`
-2. `teamrules/force_sqlc_query_layer`
-3. `synctest/unbuffered_send_after_timeout`
-4. `concurrency/message_order_assumption`
+1. `teamrules/force_sqlc_query_layer`
+2. `synctest/unbuffered_send_after_timeout`
+3. `concurrency/message_order_assumption`
 
 For each example:
 

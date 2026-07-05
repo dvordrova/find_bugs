@@ -1,0 +1,3 @@
+internal/orders/service.go:18:13: transactionBoundary: transactions belong in transaction manager packages (transaction_boundary.go:8)
+internal/orders/service.go:23:7: transactionBoundary: transactions belong in transaction manager packages (transaction_boundary.go:17)
+internal/orders/service.go:33:12: transactionBoundary: transactions belong in transaction manager packages (transaction_boundary.go:16)

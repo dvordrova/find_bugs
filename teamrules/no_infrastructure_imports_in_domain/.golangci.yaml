@@ -1,0 +1,19 @@
+version: "2"
+
+linters:
+  enable:
+    - depguard
+  settings:
+    depguard:
+      rules:
+        domain:
+          list-mode: lax
+          files:
+            - "**/domain/**.go"
+          deny:
+            - pkg: "database/sql"
+              desc: domain packages must not depend on database/sql
+            - pkg: "net/http"
+              desc: domain packages must not depend on HTTP transport types
+            - pkg: "log/slog"
+              desc: domain packages must not depend on logging infrastructure

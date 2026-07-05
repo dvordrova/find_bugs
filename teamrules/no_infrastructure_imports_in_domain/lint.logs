@@ -1,0 +1,8 @@
+internal/billing/domain/invoice.go:4:2: import 'database/sql' is not allowed from list 'domain': domain packages must not depend on database/sql (depguard)
+	"database/sql"
+	^
+internal/billing/domain/invoice.go:5:2: import 'net/http' is not allowed from list 'domain': domain packages must not depend on HTTP transport types (depguard)
+	"net/http"
+	^
+2 issues:
+* depguard: 2

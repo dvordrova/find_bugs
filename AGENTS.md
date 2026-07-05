@@ -30,6 +30,8 @@ Root checks are snapshot-based:
 - `make test-update` regenerates per-example tool output snapshots.
 - `make test` runs `make test-update`, then `git diff --exit-code`.
 
+If asked to reproduce this repository style elsewhere, use [docs/agent-bootstrap.md](docs/agent-bootstrap.md) as the handoff prompt and checklist.
+
 ## Architecture Decisions
 
 - Repository-level decisions are recorded as ADRs in [adrs](adrs).

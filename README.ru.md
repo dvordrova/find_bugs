@@ -108,3 +108,5 @@ make test LINT_CONFIG=/Users/me/project/.golangci.yaml
 Полный список планируемых багов находится в [BUGS.md](BUGS.md).
 
 Как добавить новый пример: [CONTRIBUTING.ru.md](CONTRIBUTING.ru.md).
+
+Чтобы воспроизвести стиль этого репозитория в другом проекте, используй prompt для агента: [docs/agent-bootstrap.ru.md](docs/agent-bootstrap.ru.md).

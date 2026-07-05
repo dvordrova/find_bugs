@@ -108,3 +108,5 @@ This keeps the repository honest about tool behavior. If a diagnostic changes, t
 The full catalog of planned bugs is in [BUGS.md](BUGS.md).
 
 Contribution notes are in [CONTRIBUTING.md](CONTRIBUTING.md).
+
+To reproduce this repository style in another project, use the agent handoff prompt in [docs/agent-bootstrap.md](docs/agent-bootstrap.md).

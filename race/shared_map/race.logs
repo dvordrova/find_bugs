@@ -1,0 +1,45 @@
+==================
+WARNING: DATA RACE
+Write at 0xADDR by goroutine N:
+  github.com/dvordrova/find_bugs/race/shared_map.(*Metrics).Record()
+      github.com/dvordrova/find_bugs/race/shared_map/main.go:23 +0xADDR
+  github.com/dvordrova/find_bugs/race/shared_map.TestSnapshotWhileRecording.func1()
+      github.com/dvordrova/find_bugs/race/shared_map/main_test.go:19 +0xADDR
+
+Previous read at 0xADDR by goroutine N:
+  github.com/dvordrova/find_bugs/race/shared_map.(*Metrics).Snapshot()
+      github.com/dvordrova/find_bugs/race/shared_map/main.go:29 +0xADDR
+  github.com/dvordrova/find_bugs/race/shared_map.TestSnapshotWhileRecording()
+      github.com/dvordrova/find_bugs/race/shared_map/main_test.go:29 +0xADDR
+  testing.tRunner()
+      testing/testing.go:2036 +0xADDR
+  testing.(*T).Run.gowrap1()
+      testing/testing.go:2101 +0xADDR
+
+Goroutine N (running) created at:
+  github.com/dvordrova/find_bugs/race/shared_map.TestSnapshotWhileRecording()
+      github.com/dvordrova/find_bugs/race/shared_map/main_test.go:16 +0xADDR
+  testing.tRunner()
+      testing/testing.go:2036 +0xADDR
+  testing.(*T).Run.gowrap1()
+      testing/testing.go:2101 +0xADDR
+
+Goroutine N (running) created at:
+  testing.(*T).Run()
+      testing/testing.go:2101 +0xADDR
+  testing.runTests.func1()
+      testing/testing.go:2585 +0xADDR
+  testing.tRunner()
+      testing/testing.go:2036 +0xADDR
+  testing.runTests()
+      testing/testing.go:2583 +0xADDR
+  testing.(*M).Run()
+      testing/testing.go:2443 +0xADDR
+  main.main()
+      _testmain.go:46 +0xADDR
+==================
+--- FAIL: TestSnapshotWhileRecording (Xs)
+    testing.go:1712: race detected during execution of test
+FAIL
+FAIL	github.com/dvordrova/find_bugs/race/shared_map Xs
+FAIL

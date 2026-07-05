@@ -48,6 +48,7 @@ BUGS.md
 - [nilaway/dependency_contract_false_positive](nilaway/dependency_contract_false_positive/README.ru.md): dependency module экспортирует pointer, который инициализируется в `init`; runtime безопасен, но NilAway репортит global pointer как nilable.
 - [goleak/channel_timeout_leak](goleak/channel_timeout_leak/README.ru.md): request истекает по timeout, а background worker позже отправляет результат в unbuffered channel. Обычный test проходит, но `go.uber.org/goleak` репортит leaked goroutine.
 - [goleak/context_not_cancelled](goleak/context_not_cancelled/README.ru.md): background cache warmer принимает context, но не использует его внутри worker. Обычный test проходит, но `go.uber.org/goleak` репортит goroutine, оставшуюся в `select`.
+- [race/shared_map](race/shared_map/README.ru.md): metrics collector хранит mutable counters в map и читает их, пока другая goroutine пишет. `go test -race` репортит конфликтующие accesses.
 
 ## Инструменты
 

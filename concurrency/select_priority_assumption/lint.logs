@@ -1,0 +1,6 @@
+--- FAIL: TestSelectDoesNotGuaranteePriority (0.00s)
+    main_test.go:29: select chose low-priority job while high-priority job was ready
+FAIL
+FAIL	github.com/dvordrova/find_bugs/concurrency/select_priority_assumption Xs
+?   	github.com/dvordrova/find_bugs/concurrency/select_priority_assumption/internal/dispatcher	[no test files]
+FAIL

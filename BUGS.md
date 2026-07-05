@@ -47,7 +47,7 @@ This catalog is based on practical Go failure modes and on the taxonomy from ["U
 | --- | --- | --- |
 | Early `context.AfterFunc` callback | Code registers cleanup or audit work for cancellation, but starts it during registration. A weak ordinary test only checks that the work eventually happened after cancel. | `testing/synctest` with `synctest.Wait` makes the negative assertion "nothing happened before cancel" deterministic. |
 | Context timeout tested with wall-clock sleeps | Timeout logic is tested with real sleeps, making tests slow or flaky under load. | `testing/synctest` fake time can move to the deadline without waiting on real time; implemented in [synctest/context_timeout_without_wall_clock](synctest/context_timeout_without_wall_clock/README.md). |
-| Select priority assumption | Code assumes a `select` prefers one ready case over another. | Repeated tests or a small schedule harness can expose the non-deterministic order assumption; this is a lightweight direction inspired by GFuzz. |
+| Select priority assumption | Code assumes a `select` prefers one ready case over another. | Repeated tests or a small schedule harness can expose the non-deterministic order assumption; implemented in [concurrency/select_priority_assumption](concurrency/select_priority_assumption/README.md). |
 | Message ordering assumption | A channel protocol only works when messages arrive in one order. | A helper can run table-driven order permutations before a larger GFuzz-style tool is worth building. |
 
 ## Go Vet Through golangci-lint Examples
@@ -110,3 +110,4 @@ This catalog is based on practical Go failure modes and on the taxonomy from ["U
 16. [teamrules/no_wall_clock_in_domain](teamrules/no_wall_clock_in_domain/README.md)
 17. [teamrules/no_panic_in_service_path](teamrules/no_panic_in_service_path/README.md)
 18. [synctest/context_timeout_without_wall_clock](synctest/context_timeout_without_wall_clock/README.md)
+19. [concurrency/select_priority_assumption](concurrency/select_priority_assumption/README.md)

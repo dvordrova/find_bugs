@@ -26,6 +26,7 @@ Implemented examples:
 - `teamrules/no_wall_clock_in_domain`
 - `teamrules/no_panic_in_service_path`
 - `synctest/context_timeout_without_wall_clock`
+- `concurrency/select_priority_assumption`
 
 Current shape by area:
 
@@ -39,7 +40,7 @@ Current shape by area:
 | teamrules | Started: DDD repository boundary, no wall clock in domain, and no panic in service path. This is not complete. |
 | metadata/provenance | Not implemented yet. |
 | GoBench import/curation | Not implemented yet. |
-| GFuzz-style schedule/order examples | Not implemented yet, except backlog entries. |
+| GFuzz-style schedule/order examples | Started: select priority assumption. |
 
 ## Important Gaps
 
@@ -78,7 +79,7 @@ Planned:
 
 Planned:
 
-- [ ] `concurrency/select_priority_assumption`
+- [x] `concurrency/select_priority_assumption`
 - [ ] `concurrency/message_order_assumption`
 - [ ] small stress target pattern, probably `make stress`, for examples where repeated scheduling is the detector.
 
@@ -132,10 +133,10 @@ Pick one small, deterministic example and finish it end to end.
 
 Recommended order:
 
-1. `concurrency/select_priority_assumption`
-2. `teamrules/transaction_boundary`
-3. `teamrules/force_sqlc_query_layer`
-4. `synctest/unbuffered_send_after_timeout`
+1. `teamrules/transaction_boundary`
+2. `teamrules/force_sqlc_query_layer`
+3. `synctest/unbuffered_send_after_timeout`
+4. `concurrency/message_order_assumption`
 
 For each example:
 

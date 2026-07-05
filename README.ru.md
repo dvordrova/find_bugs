@@ -71,6 +71,7 @@ BUGS.md
 - [nilaway/dependency_contract_false_positive](nilaway/dependency_contract_false_positive/README.ru.md): dependency module экспортирует pointer, который инициализируется в `init`; runtime безопасен, но NilAway репортит global pointer как nilable.
 - [goleak/channel_timeout_leak](goleak/channel_timeout_leak/README.ru.md): request истекает по timeout, а background worker позже отправляет результат в unbuffered channel. Обычный test проходит, но `go.uber.org/goleak` репортит leaked goroutine.
 - [goleak/context_not_cancelled](goleak/context_not_cancelled/README.ru.md): background cache warmer принимает context, но не использует его внутри worker. Обычный test проходит, но `go.uber.org/goleak` репортит goroutine, оставшуюся в `select`.
+- [concurrency/select_priority_assumption](concurrency/select_priority_assumption/README.ru.md): dispatcher считает, что первый ready `select` case имеет priority. Repeated schedule check показывает, что Go `select` может выбрать другой ready case.
 - [race/shared_map](race/shared_map/README.ru.md): metrics collector хранит mutable counters в map и читает их, пока другая goroutine пишет. `go test -race` репортит конфликтующие accesses.
 - [race/config_pointer](race/config_pointer/README.ru.md): config cache обновляет shared `*Config`, пока request handlers читают его. `go test -race` репортит unsynchronized pointer access.
 - [race/shutdown_flag](race/shutdown_flag/README.ru.md): worker читает обычный shutdown boolean, пока другая goroutine пишет его. `go test -race` репортит unsynchronized flag access.

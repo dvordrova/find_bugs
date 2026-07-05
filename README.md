@@ -71,6 +71,7 @@ BUGS.md
 - [nilaway/dependency_contract_false_positive](nilaway/dependency_contract_false_positive/README.md): a dependency module exports a pointer initialized in `init`; runtime is safe, but NilAway reports the global pointer as nilable.
 - [goleak/channel_timeout_leak](goleak/channel_timeout_leak/README.md): a request times out while a background worker later sends to an unbuffered channel. The normal test passes, but `go.uber.org/goleak` reports the leaked goroutine.
 - [goleak/context_not_cancelled](goleak/context_not_cancelled/README.md): a background cache warmer accepts a context but does not use it inside the worker. The normal test passes, but `go.uber.org/goleak` reports the goroutine left in `select`.
+- [concurrency/select_priority_assumption](concurrency/select_priority_assumption/README.md): a dispatcher assumes the first ready `select` case has priority. A repeated schedule check exposes that Go `select` can choose another ready case.
 - [race/shared_map](race/shared_map/README.md): a metrics collector stores mutable counters in a map and reads them while another goroutine writes. `go test -race` reports the conflicting accesses.
 - [race/config_pointer](race/config_pointer/README.md): a config cache refreshes a shared `*Config` while request handlers read it. `go test -race` reports the unsynchronized pointer access.
 - [race/shutdown_flag](race/shutdown_flag/README.md): a worker reads a plain shutdown boolean while another goroutine writes it. `go test -race` reports the unsynchronized flag access.

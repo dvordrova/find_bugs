@@ -54,6 +54,7 @@ BUGS.md
 - [govet/copylocks](govet/copylocks/README.md): a method copies a struct that contains `sync.Mutex`. `govet` through `golangci-lint` reports the copied lock value.
 - [govet/nocopy_marker](govet/nocopy_marker/README.md): a type opts into copy detection with a private `noCopy` marker. `govet` through `golangci-lint` reports accidental value copies.
 - [govet/lostcancel](govet/lostcancel/README.md): a timeout context is created but its cancel function is discarded. `govet` through `golangci-lint` reports the context leak.
+- [govet/waitgroup_add_inside_goroutine](govet/waitgroup_add_inside_goroutine/README.md): `WaitGroup.Add` is called inside the goroutine it should track. `govet` through `golangci-lint` reports the lifecycle ordering bug.
 
 ## Tools
 

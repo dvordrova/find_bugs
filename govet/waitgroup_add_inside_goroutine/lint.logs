@@ -1,0 +1,5 @@
+main.go:20:10: waitgroup: WaitGroup.Add called from inside new goroutine (govet)
+			wg.Add(1)
+			      ^
+1 issues:
+* govet: 1

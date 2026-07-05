@@ -3,7 +3,9 @@ EXAMPLE_DIRS := $(sort $(patsubst %/Makefile,%,$(shell find nilaway -mindepth 2 
 .PHONY: test test-update list-examples
 
 test: test-update
-	git diff --exit-code
+	@echo "==> git diff"
+	git -C "$(CURDIR)" rev-parse --show-toplevel
+	git -C "$(CURDIR)" diff --exit-code
 
 test-update:
 	@set -eux; \

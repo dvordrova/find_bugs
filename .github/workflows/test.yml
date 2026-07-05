@@ -4,6 +4,10 @@ on:
   push:
   pull_request:
 
+defaults:
+  run:
+    working-directory: ${{ github.workspace }}
+
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -13,12 +17,11 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@v4
 
-      - name: Prepare git diff baseline
+      - name: Show git context
         run: |
-          if ! git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
-            git init
-            git add -A
-          fi
+          pwd
+          git rev-parse --show-toplevel
+          git status --short
 
       - name: Run repository checks
         run: make test

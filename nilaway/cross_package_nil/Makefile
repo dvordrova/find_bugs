@@ -3,7 +3,6 @@ TOOLS := \
 	github.com/golangci/golangci-lint/v2/cmd/golangci-lint@v2.12.2
 
 CUSTOM_LINT := ./custom-gcl
-CUSTOM_LINT_NO_COLOR := ./custom-gcl-nc
 
 .PHONY: run lint test ci-test tool-update clean
 
@@ -16,12 +15,12 @@ lint: $(CUSTOM_LINT)
 test:
 	go test ./...
 
-ci-test: test $(CUSTOM_LINT_NO_COLOR)
+ci-test: test $(CUSTOM_LINT)
 	@set -eux; \
-	tmpcache="$$(mktemp -d)"; \
-	export GOLANGCI_LINT_CACHE="$$tmpcache"; \
-	export NO_COLOR=1; export TERM=dumb; \
-	if $(CUSTOM_LINT_NO_COLOR) --color=never run ./... > lint.logs 2>&1; then \
+	export GOLANGCI_LINT_CACHE="$$(mktemp -d)"; \
+	export NO_COLOR=1; \
+	export TERM=dumb; \
+	if $(CUSTOM_LINT) --color=never run ./... > lint.logs 2>&1; then \
 		echo "ERROR: lint succeeded, expected it to report the example bug" >&2; \
 		exit 1; \
 	fi
@@ -30,12 +29,6 @@ ci-test: test $(CUSTOM_LINT_NO_COLOR)
 tool-update:
 	go get -tool $(TOOLS)
 	go mod tidy
-
-$(CUSTOM_LINT_NO_COLOR): .custom-gcl.yml .golangci.yaml go.mod
-	tmpcache="$$(mktemp -d)"; \
-	export GOLANGCI_LINT_CACHE="$$tmpcache"; \
-	export NO_COLOR=1; export TERM=dumb; \
-	go tool golangci-lint custom --name $(CUSTOM_LINT_NO_COLOR)
 
 # Internal: build local golangci-lint with the NilAway plugin.
 $(CUSTOM_LINT): .custom-gcl.yml .golangci.yaml go.mod

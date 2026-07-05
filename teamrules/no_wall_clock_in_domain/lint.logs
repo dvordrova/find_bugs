@@ -1,0 +1,1 @@
+internal/billing/domain/subscription.go:11:30: noWallClockInDomain: domain logic must not call time.Now directly (no_wall_clock.go:6)

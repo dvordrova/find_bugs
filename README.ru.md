@@ -81,6 +81,7 @@ BUGS.md
 - [govet/scannererr_vettool](govet/scannererr_vettool/README.ru.md): line importer использует `bufio.Scanner` с маленьким token limit и забывает `scanner.Err`. Local wrapper через `go vet -vettool` запускает analyzer `scannererr` из `golang.org/x/tools`.
 - [golangci/sql_rows_not_closed](golangci/sql_rows_not_closed/README.ru.md): repository method сканирует database rows и проверяет iteration errors, но забывает `rows.Close`. `sqlclosecheck` через `golangci-lint` репортит resource leak.
 - [teamrules/ddd_repository_boundary](teamrules/ddd_repository_boundary/README.ru.md): service code напрямую вызывает `*sql.DB`. Type-aware правило `ruleguard` держит database calls внутри repository packages.
+- [teamrules/no_wall_clock_in_domain](teamrules/no_wall_clock_in_domain/README.ru.md): domain code напрямую вызывает `time.Now`. Узкое правило `ruleguard` держит wall-clock reads в adapters или composition roots.
 - [synctest/context_afterfunc_negative_assertion](synctest/context_afterfunc_negative_assertion/README.ru.md): cancellation hook пишет audit record до cancel context. `testing/synctest` делает assertion "еще ничего не произошло" детерминированным.
 
 ## Инструменты

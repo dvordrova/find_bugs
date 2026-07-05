@@ -23,6 +23,7 @@ Implemented examples:
 - `golangci/sql_rows_not_closed`
 - `synctest/context_afterfunc_negative_assertion`
 - `teamrules/ddd_repository_boundary`
+- `teamrules/no_wall_clock_in_domain`
 
 Current shape by area:
 
@@ -33,7 +34,7 @@ Current shape by area:
 | Race detector | Good initial set: map, pointer config, shutdown flag. |
 | govet / golangci-lint | Good initial set: copylocks, noCopy, lostcancel, WaitGroup, scannererr vettool, SQL rows close. |
 | synctest | Started: 1 deterministic negative assertion example. |
-| teamrules | Only 1 example: DDD repository boundary. This is not complete. |
+| teamrules | Started: DDD repository boundary and no wall clock in domain. This is not complete. |
 | metadata/provenance | Not implemented yet. |
 | GoBench import/curation | Not implemented yet. |
 | GFuzz-style schedule/order examples | Not implemented yet, except backlog entries. |
@@ -50,13 +51,12 @@ Planned team-rule examples from `BUGS.md`:
 - [ ] Force sqlc query layer: application code should use generated query methods instead of raw SQL or direct `database/sql`.
 - [ ] Transaction boundary: `BeginTx`, `Commit`, and `Rollback` belong in a unit-of-work or transaction manager package.
 - [ ] No infrastructure imports in domain packages: ban `database/sql`, HTTP clients, queue clients, and loggers from domain code.
-- [ ] No wall clock in domain logic: ban `time.Now()` outside adapters/composition roots.
+- [x] No wall clock in domain logic: ban `time.Now()` in domain packages.
 - [ ] No panic in service paths: ban `panic` in service/application packages except tests and main.
 - [ ] Context first argument: I/O-facing functions should accept `context.Context` as the first argument.
 
 Good next team-rule candidates:
 
-- `teamrules/no_wall_clock_in_domain`: simple `ruleguard`, easy to explain, production-like.
 - `teamrules/no_panic_in_service_path`: simple `ruleguard`, clear README.
 - `teamrules/transaction_boundary`: useful, but requires more careful package layout.
 - `teamrules/force_sqlc_query_layer`: useful, but probably needs a tiny generated-like package and import/call boundary story.
@@ -131,10 +131,10 @@ Pick one small, deterministic example and finish it end to end.
 
 Recommended order:
 
-1. `teamrules/no_wall_clock_in_domain`
-2. `teamrules/no_panic_in_service_path`
-3. `synctest/context_timeout_without_wall_clock`
-4. `concurrency/select_priority_assumption`
+1. `teamrules/no_panic_in_service_path`
+2. `synctest/context_timeout_without_wall_clock`
+3. `concurrency/select_priority_assumption`
+4. `teamrules/transaction_boundary`
 
 For each example:
 

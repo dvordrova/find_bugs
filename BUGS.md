@@ -86,7 +86,7 @@ This catalog is based on practical Go failure modes and on the taxonomy from ["U
 | Force sqlc query layer | Application code writes raw SQL strings or calls `database/sql` directly instead of using generated sqlc query methods. | `ruleguard` or `depguard`; combine import bans with allowlisted generated query packages. |
 | Transaction boundary | Code starts or commits transactions outside a unit-of-work/transaction manager package. | `ruleguard` for `BeginTx`, `Commit`, and `Rollback` calls outside allowed packages. |
 | No infrastructure imports in domain | Domain packages import `database/sql`, HTTP clients, loggers, or queue clients. | `depguard` for broad import boundaries; `ruleguard` for call-level exceptions. |
-| No wall clock in domain logic | Domain code calls `time.Now` directly instead of accepting a clock. | `ruleguard` for `time.Now()` outside adapters or composition roots. |
+| No wall clock in domain logic | Domain code calls `time.Now` directly instead of accepting a clock. | `ruleguard` for `time.Now()` in domain packages; implemented in [teamrules/no_wall_clock_in_domain](teamrules/no_wall_clock_in_domain/README.md). |
 | No panic in service paths | Service/application packages use `panic` for ordinary error handling. | `ruleguard` for `panic($*_)` outside tests, `main`, or generated code. |
 | Context first argument | I/O-facing functions accept `context.Context`, but not as the first argument. | `revive`/custom analyzer; `ruleguard` can cover common local signatures. |
 
@@ -107,3 +107,4 @@ This catalog is based on practical Go failure modes and on the taxonomy from ["U
 13. [govet/scannererr_vettool](govet/scannererr_vettool/README.md)
 14. [teamrules/ddd_repository_boundary](teamrules/ddd_repository_boundary/README.md)
 15. [synctest/context_afterfunc_negative_assertion](synctest/context_afterfunc_negative_assertion/README.md)
+16. [teamrules/no_wall_clock_in_domain](teamrules/no_wall_clock_in_domain/README.md)

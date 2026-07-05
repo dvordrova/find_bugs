@@ -22,6 +22,7 @@ Implemented examples:
 - `govet/scannererr_vettool`
 - `golangci/sql_rows_not_closed`
 - `synctest/context_afterfunc_negative_assertion`
+- `synctest/unbuffered_send_after_timeout`
 - `teamrules/ddd_repository_boundary`
 - `teamrules/force_sqlc_query_layer`
 - `teamrules/transaction_boundary`
@@ -38,7 +39,7 @@ Current shape by area:
 | Goleak | Started: timeout send leak and missing context propagation. |
 | Race detector | Good initial set: map, pointer config, shutdown flag. |
 | govet / golangci-lint | Good initial set: copylocks, noCopy, lostcancel, WaitGroup, scannererr vettool, SQL rows close. |
-| synctest | Started: negative assertion and fake-time timeout examples. |
+| synctest | Started: negative assertion, fake-time timeout, and blocked-send-after-timeout examples. |
 | teamrules | Started: DDD repository boundary, force sqlc query layer, transaction boundary, no wall clock in domain, and no panic in service path. This is not complete. |
 | metadata/provenance | Not implemented yet. |
 | GoBench import/curation | Not implemented yet. |
@@ -71,10 +72,10 @@ Implemented:
 
 - [x] `synctest/context_afterfunc_negative_assertion`
 - [x] `synctest/context_timeout_without_wall_clock`
+- [x] `synctest/unbuffered_send_after_timeout`
 
 Planned:
 
-- [ ] `synctest/unbuffered_send_after_timeout`
 - [ ] document synctest limitations with mutexes and external I/O in an example README or a small docs note.
 
 ### GFuzz-Inspired Schedule Examples
@@ -135,9 +136,9 @@ Pick one small, deterministic example and finish it end to end.
 
 Recommended order:
 
-1. `synctest/unbuffered_send_after_timeout`
-2. `concurrency/message_order_assumption`
-3. `teamrules/no_infrastructure_imports_in_domain`
+1. `concurrency/message_order_assumption`
+2. `teamrules/no_infrastructure_imports_in_domain`
+3. `teamrules/context_first_argument`
 
 For each example:
 

@@ -88,6 +88,7 @@ BUGS.md
 - [teamrules/no_panic_in_service_path](teamrules/no_panic_in_service_path/README.md): service code panics for an ordinary business failure. A narrow `ruleguard` rule keeps service paths returning errors instead.
 - [synctest/context_afterfunc_negative_assertion](synctest/context_afterfunc_negative_assertion/README.md): a cancellation hook writes an audit record before the context is canceled. `testing/synctest` makes the "nothing happened yet" assertion deterministic.
 - [synctest/context_timeout_without_wall_clock](synctest/context_timeout_without_wall_clock/README.md): a lease timeout is accidentally doubled. `testing/synctest` advances fake time to the deadline without wall-clock sleeps.
+- [synctest/unbuffered_send_after_timeout](synctest/unbuffered_send_after_timeout/README.md): a timeout returns to the caller while a legacy client worker later blocks on an unbuffered result send. `testing/synctest` exposes the blocked goroutine without wall-clock sleeps.
 
 ## Tools
 

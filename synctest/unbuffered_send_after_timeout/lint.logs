@@ -1,0 +1,6 @@
+--- FAIL: TestSynctestFindsBlockedSendAfterTimeout (0.00s)
+    main_test.go:38: synctest detected blocked worker send: deadlock: main bubble goroutine has exited but blocked goroutines remain
+FAIL
+FAIL	github.com/dvordrova/find_bugs/synctest/unbuffered_send_after_timeout Xs
+?   	github.com/dvordrova/find_bugs/synctest/unbuffered_send_after_timeout/internal/pricing	[no test files]
+FAIL

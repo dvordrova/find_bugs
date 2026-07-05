@@ -16,7 +16,7 @@ This catalog is based on practical Go failure modes and on the taxonomy from ["U
 
 | Bug | Example | Detection |
 | --- | --- | --- |
-| Unbuffered channel send after caller timeout | Worker sends to a channel after parent returns on timeout. | Usually not caught by `go test -race`; can be exposed by tests with timeouts and checked with goleak. |
+| Unbuffered channel send after caller timeout | Worker sends to a channel after parent returns on timeout. | Usually not caught by `go test -race`; can be exposed by `testing/synctest` or checked with goleak; implemented in [synctest/unbuffered_send_after_timeout](synctest/unbuffered_send_after_timeout/README.md). |
 | Receive from never-closed channel | Consumer ranges over a channel that no producer closes. | Tests with timeout; goleak for leaked goroutines. |
 | Nil channel blocks forever | A select case uses a nil channel because initialization was skipped. | Tests with timeout; static review; sometimes linters catch impossible paths. |
 | WaitGroup counter mismatch | `Add` and `Done` do not match on all paths. | Tests with timeout; goleak if goroutines remain blocked. |
@@ -47,6 +47,7 @@ This catalog is based on practical Go failure modes and on the taxonomy from ["U
 | --- | --- | --- |
 | Early `context.AfterFunc` callback | Code registers cleanup or audit work for cancellation, but starts it during registration. A weak ordinary test only checks that the work eventually happened after cancel. | `testing/synctest` with `synctest.Wait` makes the negative assertion "nothing happened before cancel" deterministic. |
 | Context timeout tested with wall-clock sleeps | Timeout logic is tested with real sleeps, making tests slow or flaky under load. | `testing/synctest` fake time can move to the deadline without waiting on real time; implemented in [synctest/context_timeout_without_wall_clock](synctest/context_timeout_without_wall_clock/README.md). |
+| Unbuffered send after timeout | Caller returns on timeout, then the worker completes and blocks forever sending a late result to an unbuffered channel. | `testing/synctest` can advance fake time until the late send and report blocked goroutines; implemented in [synctest/unbuffered_send_after_timeout](synctest/unbuffered_send_after_timeout/README.md). |
 | Select priority assumption | Code assumes a `select` prefers one ready case over another. | Repeated tests or a small schedule harness can expose the non-deterministic order assumption; implemented in [concurrency/select_priority_assumption](concurrency/select_priority_assumption/README.md). |
 | Message ordering assumption | A channel protocol only works when messages arrive in one order. | A helper can run table-driven order permutations before a larger GFuzz-style tool is worth building. |
 
@@ -113,3 +114,4 @@ This catalog is based on practical Go failure modes and on the taxonomy from ["U
 19. [concurrency/select_priority_assumption](concurrency/select_priority_assumption/README.md)
 20. [teamrules/transaction_boundary](teamrules/transaction_boundary/README.md)
 21. [teamrules/force_sqlc_query_layer](teamrules/force_sqlc_query_layer/README.md)
+22. [synctest/unbuffered_send_after_timeout](synctest/unbuffered_send_after_timeout/README.md)

@@ -5,6 +5,7 @@ EXAMPLE_DIRS := $(sort $(patsubst %/Makefile,%,$(shell find nilaway -mindepth 2 
 test: test-update
 	@echo "==> git diff"
 	pwd
+	ls -al
 	git diff --exit-code
 
 test-update:

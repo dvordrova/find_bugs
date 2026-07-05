@@ -1,0 +1,6 @@
+--- FAIL: TestSynctestChecksLeaseDeadline (0.00s)
+    main_test.go:38: after ttl: lease is still active, want expired
+FAIL
+FAIL	github.com/dvordrova/find_bugs/synctest/context_timeout_without_wall_clock Xs
+?   	github.com/dvordrova/find_bugs/synctest/context_timeout_without_wall_clock/internal/leases	[no test files]
+FAIL

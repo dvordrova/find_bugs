@@ -84,6 +84,7 @@ BUGS.md
 - [teamrules/no_wall_clock_in_domain](teamrules/no_wall_clock_in_domain/README.ru.md): domain code напрямую вызывает `time.Now`. Узкое правило `ruleguard` держит wall-clock reads в adapters или composition roots.
 - [teamrules/no_panic_in_service_path](teamrules/no_panic_in_service_path/README.ru.md): service code паникует на обычном business failure. Узкое правило `ruleguard` заставляет service paths возвращать errors.
 - [synctest/context_afterfunc_negative_assertion](synctest/context_afterfunc_negative_assertion/README.ru.md): cancellation hook пишет audit record до cancel context. `testing/synctest` делает assertion "еще ничего не произошло" детерминированным.
+- [synctest/context_timeout_without_wall_clock](synctest/context_timeout_without_wall_clock/README.ru.md): lease timeout случайно увеличен вдвое. `testing/synctest` двигает fake time до deadline без wall-clock sleeps.
 
 ## Инструменты
 

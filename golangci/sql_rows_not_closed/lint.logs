@@ -1,0 +1,5 @@
+main.go:20:32: Rows/Stmt/NamedStmt was not closed (sqlclosecheck)
+	rows, err := s.db.QueryContext(ctx, `
+	                              ^
+1 issues:
+* sqlclosecheck: 1

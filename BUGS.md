@@ -51,6 +51,13 @@ This catalog is based on practical Go failure modes and on the taxonomy from "Un
 | WaitGroup misuse | `WaitGroup.Add` is called from inside the goroutine it is supposed to track. | `govet` through `golangci-lint` when the active Go version includes the WaitGroup analyzer; otherwise use a dedicated linter or keep as a documented limitation. |
 | Bad printf shape | Logging or formatting uses a dynamic format with mismatched arguments. | `govet` through `golangci-lint`, analyzer `printf`. |
 
+## Input And Stream Handling
+
+| Bug | Example | Detection |
+| --- | --- | --- |
+| `bufio.Scanner` error swallowed | Scanner uses a small maximum token size, `Scan` returns `false` on a long token, and the caller forgets to check `scanner.Err()`. | Not caught by `go vet`, `govet`, `staticcheck`, or `errcheck` in a minimal check; use focused tests or a custom analyzer. |
+| SQL rows iteration error ignored | Code loops over `rows.Next()` and returns partial data without checking `rows.Err()`. | `rowserrcheck` through `golangci-lint`. |
+
 ## Resource Leaks
 
 | Bug | Example | Detection |
@@ -58,6 +65,7 @@ This catalog is based on practical Go failure modes and on the taxonomy from "Un
 | Goroutine leak on early return | Function starts a worker and returns without canceling or draining it. | `go.uber.org/goleak` in tests. |
 | Ticker/timer leak | `time.NewTicker` is not stopped. | Tests and review; goleak can show goroutines caused by leaked background work. |
 | HTTP response body leak | Client does not close `resp.Body`. | `bodyclose` via `golangci-lint`. |
+| SQL rows leak | Code reads from `*sql.Rows` and even checks `rows.Err()`, but forgets `rows.Close()`. | `sqlclosecheck` through `golangci-lint`. |
 | File handle leak | Error path returns before closing a file. | `go vet`, tests, and linters such as `errcheck` for ignored close errors. |
 
 ## Implemented Examples
@@ -73,3 +81,4 @@ This catalog is based on practical Go failure modes and on the taxonomy from "Un
 9. [govet/nocopy_marker](govet/nocopy_marker/README.md)
 10. [govet/lostcancel](govet/lostcancel/README.md)
 11. [govet/waitgroup_add_inside_goroutine](govet/waitgroup_add_inside_goroutine/README.md)
+12. [golangci/sql_rows_not_closed](golangci/sql_rows_not_closed/README.md)

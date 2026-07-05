@@ -1,0 +1,5 @@
+main.go:21:9: copylocks: Balance passes lock by value: github.com/dvordrova/find_bugs/govet/copylocks.AccountLedger contains sync.Mutex (govet)
+func (l AccountLedger) Balance(accountID string) int {
+        ^
+1 issues:
+* govet: 1

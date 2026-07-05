@@ -51,6 +51,7 @@ BUGS.md
 - [race/shared_map](race/shared_map/README.md): a metrics collector stores mutable counters in a map and reads them while another goroutine writes. `go test -race` reports the conflicting accesses.
 - [race/config_pointer](race/config_pointer/README.md): a config cache refreshes a shared `*Config` while request handlers read it. `go test -race` reports the unsynchronized pointer access.
 - [race/shutdown_flag](race/shutdown_flag/README.md): a worker reads a plain shutdown boolean while another goroutine writes it. `go test -race` reports the unsynchronized flag access.
+- [govet/copylocks](govet/copylocks/README.md): a method copies a struct that contains `sync.Mutex`. `govet` through `golangci-lint` reports the copied lock value.
 
 ## Tools
 

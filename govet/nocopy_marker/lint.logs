@@ -1,0 +1,5 @@
+main.go:19:9: copylocks: Topic passes lock by value: github.com/dvordrova/find_bugs/govet/nocopy_marker.StreamConsumer contains github.com/dvordrova/find_bugs/govet/nocopy_marker.noCopy (govet)
+func (c StreamConsumer) Topic() string {
+        ^
+1 issues:
+* govet: 1

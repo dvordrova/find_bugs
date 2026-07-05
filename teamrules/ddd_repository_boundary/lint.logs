@@ -1,0 +1,1 @@
+internal/customer/service.go:22:15: dddRepository: database/sql calls belong in repository packages (ddd_repository.go:10)

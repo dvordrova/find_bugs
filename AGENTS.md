@@ -32,13 +32,10 @@ Root checks are snapshot-based:
 
 ## Architecture Decisions
 
-See ADRs in [adrs](adrs):
-
-- [0001-example-catalog-structure.md](adrs/0001-example-catalog-structure.md)
-- [0002-makefile-and-snapshot-ci.md](adrs/0002-makefile-and-snapshot-ci.md)
-- [0003-nilaway-custom-golangci-lint.md](adrs/0003-nilaway-custom-golangci-lint.md)
-- [0004-nilaway-ansi-and-cache.md](adrs/0004-nilaway-ansi-and-cache.md)
-- [0005-github-actions-container-git.md](adrs/0005-github-actions-container-git.md)
+- Repository-level decisions are recorded as ADRs in [adrs](adrs).
+- Use the repo-local `$adr-writer` skill for writing, reviewing, updating, superseding, or checking ADRs.
+- Before changing architecture, dependencies, CI, testing strategy, tool output snapshots, or other cross-cutting patterns, check existing ADRs for constraints.
+- Keep detailed ADR workflow rules in [.agents/skills/adr-writer/SKILL.md](.agents/skills/adr-writer/SKILL.md), not in this file.
 
 ## Local Environment Notes
 

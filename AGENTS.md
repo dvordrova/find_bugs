@@ -41,12 +41,7 @@ Root checks are snapshot-based:
 
 - `make --trace` is not supported by the Apple make in this local environment; use `make -n`, normal output, or Linux CI logs.
 - Codex tool calls start separate non-interactive `zsh` shells. `source ~/.zshrc` does not persist across calls.
-- Local PATH may point to old `/usr/local/go/bin/go`; use explicit Go 1.26.4 PATH if needed:
-
-```sh
-env PATH=/Users/dvordrova/sdk/go1.26.4/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin make test
-```
-
+- If Go behavior looks surprising, check `go version` and `which go` before debugging the repository.
 - Network/cache writes outside the workspace often require escalated permissions.
 - Do not use destructive git commands.
 - Do not revert user changes.

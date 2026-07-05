@@ -70,6 +70,14 @@ BUGS.md
 - `make test-update`: regenerates pinned tool files and lint snapshot logs for every example.
 - `make test`: runs `make test-update`, then fails if tracked files changed.
 
+To try another golangci-lint config against the catalog:
+
+```sh
+make test LINT_CONFIG=/Users/me/project/.golangci.yaml
+```
+
+`config=/Users/me/project/.golangci.yaml` works as a shorter alias. In this mode golangci-lint examples write whatever the custom config reports into their `lint.logs`; examples based on `go test -race` or `goleak` keep using their own tools. The final `git diff` shows whether the custom config still catches the expected problems.
+
 ## Why Snapshots
 
 The generated `*.logs` files are committed snapshots. When a Go, golangci-lint, or NilAway version changes, `make test` shows the changed reports through `git diff`.

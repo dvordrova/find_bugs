@@ -56,6 +56,14 @@ Keep contributions focused: one example should teach one bug pattern or one tool
    make test
    ```
 
+To compare a custom golangci-lint config against the existing examples, run:
+
+```sh
+make test LINT_CONFIG=/absolute/path/to/.golangci.yaml
+```
+
+The root Makefile forwards that config into golangci-lint examples and keeps non-golangci examples on their normal tools. Use an absolute path because each example runs in its own directory.
+
 ## Documentation
 
 Each example README should explain:

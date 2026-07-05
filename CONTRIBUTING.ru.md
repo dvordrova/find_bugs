@@ -56,6 +56,14 @@
    make test
    ```
 
+Чтобы сравнить custom golangci-lint config с существующими примерами, запусти:
+
+```sh
+make test LINT_CONFIG=/absolute/path/to/.golangci.yaml
+```
+
+Корневой Makefile прокидывает этот config в golangci-lint примеры, а не-golangci примеры оставляет на их обычных инструментах. Используй absolute path, потому что каждый пример запускается из своей директории.
+
 ## Документация
 
 README каждого примера должен объяснять:

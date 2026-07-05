@@ -3,6 +3,8 @@ TOOLS := \
 	github.com/golangci/golangci-lint/v2/cmd/golangci-lint@v2.12.2
 
 CUSTOM_LINT := ./custom-gcl
+LINT_CONFIG ?= $(config)
+ACTIVE_LINT_CONFIG = $(if $(LINT_CONFIG),$(LINT_CONFIG),.golangci.yaml)
 
 .PHONY: run lint test ci-test tool-update clean
 
@@ -10,7 +12,7 @@ run:
 	go run .
 
 lint: $(CUSTOM_LINT)
-	$(CUSTOM_LINT) run ./...
+	$(CUSTOM_LINT) run --config "$(ACTIVE_LINT_CONFIG)" ./...
 
 test:
 	go test ./...
@@ -20,7 +22,13 @@ ci-test: test $(CUSTOM_LINT)
 	export GOLANGCI_LINT_CACHE="$$(mktemp -d)"; \
 	export NO_COLOR=1; \
 	export TERM=dumb; \
-	if $(CUSTOM_LINT) --color=never run ./... > lint.logs 2>&1; then \
+	if [ -n "$(LINT_CONFIG)" ]; then \
+		if $(CUSTOM_LINT) --color=never run --config "$(ACTIVE_LINT_CONFIG)" ./... > lint.logs 2>&1; then \
+			printf 'OK: lint succeeded with LINT_CONFIG=%s\n' "$(ACTIVE_LINT_CONFIG)" >> lint.logs; \
+		fi; \
+		exit 0; \
+	fi; \
+	if $(CUSTOM_LINT) --color=never run --config .golangci.yaml ./... > lint.logs 2>&1; then \
 		echo "ERROR: lint succeeded, expected it to report the example bug" >&2; \
 		exit 1; \
 	fi
